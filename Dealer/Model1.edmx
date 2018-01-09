@@ -1,0 +1,836 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="DealersModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AspNetRoles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="256" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUserClaims">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ClaimType" Type="nvarchar(max)" />
+          <Property Name="ClaimValue" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="AspNetUserLogins">
+          <Key>
+            <PropertyRef Name="LoginProvider" />
+            <PropertyRef Name="ProviderKey" />
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="LoginProvider" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ProviderKey" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUserRoles">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="RoleId" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUsers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="256" />
+          <Property Name="EmailConfirmed" Type="bit" Nullable="false" />
+          <Property Name="PasswordHash" Type="nvarchar(max)" />
+          <Property Name="SecurityStamp" Type="nvarchar(max)" />
+          <Property Name="PhoneNumber" Type="nvarchar(max)" />
+          <Property Name="PhoneNumberConfirmed" Type="bit" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="bit" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="datetime" />
+          <Property Name="LockoutEnabled" Type="bit" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="int" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Automovil">
+          <Key>
+            <PropertyRef Name="ID_Auto" />
+          </Key>
+          <Property Name="ID_Auto" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_Marca" Type="int" Nullable="false" />
+          <Property Name="Modelo" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="Año_Fabricacion" Type="int" Nullable="false" />
+          <Property Name="ID_Tipo" Type="int" Nullable="false" />
+          <Property Name="ID_CantPasajeros" Type="int" Nullable="false" />
+          <Property Name="ID_TipoTrans" Type="int" Nullable="false" />
+          <Property Name="Precio" Type="money" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Cant_Pasajeros">
+          <Key>
+            <PropertyRef Name="ID_CanPasajeros" />
+          </Key>
+          <Property Name="ID_CanPasajeros" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CanPasajeros" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Compra">
+          <Key>
+            <PropertyRef Name="ID_Compra" />
+          </Key>
+          <Property Name="ID_Compra" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_User" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ID_Empleado" Type="int" Nullable="false" />
+          <Property Name="ID_Auto" Type="int" Nullable="false" />
+          <Property Name="Cantidad" Type="int" Nullable="false" />
+          <Property Name="Total" Type="money" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Condicion">
+          <Key>
+            <PropertyRef Name="ID_Condicion" />
+          </Key>
+          <Property Name="ID_Condicion" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Condicion" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="Cantidad" Type="int" Nullable="false" />
+          <Property Name="ID_Auto" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Empleados">
+          <Key>
+            <PropertyRef Name="ID_Empleado" />
+          </Key>
+          <Property Name="ID_Empleado" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Apellido" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Cedula" Type="bigint" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="PhoneNumber" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Marca">
+          <Key>
+            <PropertyRef Name="ID_Marca" />
+          </Key>
+          <Property Name="ID_Marca" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Marca" Type="varchar" MaxLength="25" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tipo_Automovil">
+          <Key>
+            <PropertyRef Name="ID_Tipo" />
+          </Key>
+          <Property Name="ID_Tipo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Tipo" Type="varchar" MaxLength="25" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tipo_Trans">
+          <Key>
+            <PropertyRef Name="ID_TipoTrans" />
+          </Key>
+          <Property Name="ID_TipoTrans" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Tipo_Trans" Type="varchar" MaxLength="25" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Automovil_Cant_Pasajeros">
+          <End Role="Cant_Pasajeros" Type="Self.Cant_Pasajeros" Multiplicity="1" />
+          <End Role="Automovil" Type="Self.Automovil" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cant_Pasajeros">
+              <PropertyRef Name="ID_CanPasajeros" />
+            </Principal>
+            <Dependent Role="Automovil">
+              <PropertyRef Name="ID_CantPasajeros" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Automovil_Marca">
+          <End Role="Marca" Type="Self.Marca" Multiplicity="1" />
+          <End Role="Automovil" Type="Self.Automovil" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Marca">
+              <PropertyRef Name="ID_Marca" />
+            </Principal>
+            <Dependent Role="Automovil">
+              <PropertyRef Name="ID_Marca" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Automovil_Tipo_Automovil">
+          <End Role="Tipo_Automovil" Type="Self.Tipo_Automovil" Multiplicity="1" />
+          <End Role="Automovil" Type="Self.Automovil" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tipo_Automovil">
+              <PropertyRef Name="ID_Tipo" />
+            </Principal>
+            <Dependent Role="Automovil">
+              <PropertyRef Name="ID_Tipo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Automovil_Tipo_Trans">
+          <End Role="Tipo_Trans" Type="Self.Tipo_Trans" Multiplicity="1" />
+          <End Role="Automovil" Type="Self.Automovil" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tipo_Trans">
+              <PropertyRef Name="ID_TipoTrans" />
+            </Principal>
+            <Dependent Role="Automovil">
+              <PropertyRef Name="ID_TipoTrans" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Compra_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="Compra" Type="Self.Compra" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Compra">
+              <PropertyRef Name="ID_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Compra_Automovil">
+          <End Role="Automovil" Type="Self.Automovil" Multiplicity="1" />
+          <End Role="Compra" Type="Self.Compra" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Automovil">
+              <PropertyRef Name="ID_Auto" />
+            </Principal>
+            <Dependent Role="Compra">
+              <PropertyRef Name="ID_Auto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Compra_Empleados">
+          <End Role="Empleados" Type="Self.Empleados" Multiplicity="1" />
+          <End Role="Compra" Type="Self.Compra" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleados">
+              <PropertyRef Name="ID_Empleado" />
+            </Principal>
+            <Dependent Role="Compra">
+              <PropertyRef Name="ID_Empleado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Condicion_Automovil">
+          <End Role="Automovil" Type="Self.Automovil" Multiplicity="1" />
+          <End Role="Condicion" Type="Self.Condicion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Automovil">
+              <PropertyRef Name="ID_Auto" />
+            </Principal>
+            <Dependent Role="Condicion">
+              <PropertyRef Name="ID_Auto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserClaims" Type="Self.AspNetUserClaims" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserClaims">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserLogins" Type="Self.AspNetUserLogins" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserLogins">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
+          <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetRoles">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserRoles">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserRoles">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DealersModelStoreContainer">
+          <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Automovil" EntityType="Self.Automovil" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Cant_Pasajeros" EntityType="Self.Cant_Pasajeros" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Compra" EntityType="Self.Compra" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Condicion" EntityType="Self.Condicion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Empleados" EntityType="Self.Empleados" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Marca" EntityType="Self.Marca" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tipo_Automovil" EntityType="Self.Tipo_Automovil" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tipo_Trans" EntityType="Self.Tipo_Trans" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Automovil_Cant_Pasajeros" Association="Self.FK_Automovil_Cant_Pasajeros">
+            <End Role="Cant_Pasajeros" EntitySet="Cant_Pasajeros" />
+            <End Role="Automovil" EntitySet="Automovil" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Automovil_Marca" Association="Self.FK_Automovil_Marca">
+            <End Role="Marca" EntitySet="Marca" />
+            <End Role="Automovil" EntitySet="Automovil" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Automovil_Tipo_Automovil" Association="Self.FK_Automovil_Tipo_Automovil">
+            <End Role="Tipo_Automovil" EntitySet="Tipo_Automovil" />
+            <End Role="Automovil" EntitySet="Automovil" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Automovil_Tipo_Trans" Association="Self.FK_Automovil_Tipo_Trans">
+            <End Role="Tipo_Trans" EntitySet="Tipo_Trans" />
+            <End Role="Automovil" EntitySet="Automovil" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Compra_AspNetUsers" Association="Self.FK_Compra_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Compra" EntitySet="Compra" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Compra_Automovil" Association="Self.FK_Compra_Automovil">
+            <End Role="Automovil" EntitySet="Automovil" />
+            <End Role="Compra" EntitySet="Compra" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Compra_Empleados" Association="Self.FK_Compra_Empleados">
+            <End Role="Empleados" EntitySet="Empleados" />
+            <End Role="Compra" EntitySet="Compra" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Condicion_Automovil" Association="Self.FK_Condicion_Automovil">
+            <End Role="Automovil" EntitySet="Automovil" />
+            <End Role="Condicion" EntitySet="Condicion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
+            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+            <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DealersModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="AspNetRole">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="AspNetUsers" Relationship="Self.AspNetUserRoles" FromRole="AspNetRoles" ToRole="AspNetUsers" />
+        </EntityType>
+        <EntityType Name="AspNetUserClaim">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ClaimType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ClaimValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUser" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUserClaims" ToRole="AspNetUsers" />
+        </EntityType>
+        <EntityType Name="AspNetUserLogin">
+          <Key>
+            <PropertyRef Name="LoginProvider" />
+            <PropertyRef Name="ProviderKey" />
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="LoginProvider" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ProviderKey" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="AspNetUser" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUserLogins" ToRole="AspNetUsers" />
+        </EntityType>
+        <EntityType Name="AspNetUser">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SecurityStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumberConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="DateTime" Precision="3" />
+          <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
+          <Property Name="UserName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="AspNetUserClaims" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserClaims" />
+          <NavigationProperty Name="AspNetUserLogins" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserLogins" />
+          <NavigationProperty Name="Compras" Relationship="Self.FK_Compra_AspNetUsers" FromRole="AspNetUsers" ToRole="Compra" />
+          <NavigationProperty Name="AspNetRoles" Relationship="Self.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
+        </EntityType>
+        <EntityType Name="Automovil">
+          <Key>
+            <PropertyRef Name="ID_Auto" />
+          </Key>
+          <Property Name="ID_Auto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_Marca" Type="Int32" Nullable="false" />
+          <Property Name="Modelo" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Año_Fabricacion" Type="Int32" Nullable="false" />
+          <Property Name="ID_Tipo" Type="Int32" Nullable="false" />
+          <Property Name="ID_CantPasajeros" Type="Int32" Nullable="false" />
+          <Property Name="ID_TipoTrans" Type="Int32" Nullable="false" />
+          <Property Name="Precio" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <NavigationProperty Name="Cant_Pasajeros" Relationship="Self.FK_Automovil_Cant_Pasajeros" FromRole="Automovil" ToRole="Cant_Pasajeros" />
+          <NavigationProperty Name="Marca" Relationship="Self.FK_Automovil_Marca" FromRole="Automovil" ToRole="Marca" />
+          <NavigationProperty Name="Tipo_Automovil" Relationship="Self.FK_Automovil_Tipo_Automovil" FromRole="Automovil" ToRole="Tipo_Automovil" />
+          <NavigationProperty Name="Tipo_Trans" Relationship="Self.FK_Automovil_Tipo_Trans" FromRole="Automovil" ToRole="Tipo_Trans" />
+          <NavigationProperty Name="Compras" Relationship="Self.FK_Compra_Automovil" FromRole="Automovil" ToRole="Compra" />
+          <NavigationProperty Name="Condicions" Relationship="Self.FK_Condicion_Automovil" FromRole="Automovil" ToRole="Condicion" />
+        </EntityType>
+        <EntityType Name="Cant_Pasajeros">
+          <Key>
+            <PropertyRef Name="ID_CanPasajeros" />
+          </Key>
+          <Property Name="ID_CanPasajeros" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CanPasajeros" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Automovils" Relationship="Self.FK_Automovil_Cant_Pasajeros" FromRole="Cant_Pasajeros" ToRole="Automovil" />
+        </EntityType>
+        <EntityType Name="Compra">
+          <Key>
+            <PropertyRef Name="ID_Compra" />
+          </Key>
+          <Property Name="ID_Compra" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_User" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ID_Empleado" Type="Int32" Nullable="false" />
+          <Property Name="ID_Auto" Type="Int32" Nullable="false" />
+          <Property Name="Cantidad" Type="Int32" Nullable="false" />
+          <Property Name="Total" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <NavigationProperty Name="AspNetUser" Relationship="Self.FK_Compra_AspNetUsers" FromRole="Compra" ToRole="AspNetUsers" />
+          <NavigationProperty Name="Automovil" Relationship="Self.FK_Compra_Automovil" FromRole="Compra" ToRole="Automovil" />
+          <NavigationProperty Name="Empleado" Relationship="Self.FK_Compra_Empleados" FromRole="Compra" ToRole="Empleados" />
+        </EntityType>
+        <EntityType Name="Condicion">
+          <Key>
+            <PropertyRef Name="ID_Condicion" />
+          </Key>
+          <Property Name="ID_Condicion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Condicion1" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Cantidad" Type="Int32" Nullable="false" />
+          <Property Name="ID_Auto" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Automovil" Relationship="Self.FK_Condicion_Automovil" FromRole="Condicion" ToRole="Automovil" />
+        </EntityType>
+        <EntityType Name="Empleado">
+          <Key>
+            <PropertyRef Name="ID_Empleado" />
+          </Key>
+          <Property Name="ID_Empleado" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Apellido" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Cedula" Type="Int64" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Compras" Relationship="Self.FK_Compra_Empleados" FromRole="Empleados" ToRole="Compra" />
+        </EntityType>
+        <EntityType Name="Marca">
+          <Key>
+            <PropertyRef Name="ID_Marca" />
+          </Key>
+          <Property Name="ID_Marca" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Marca1" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Automovils" Relationship="Self.FK_Automovil_Marca" FromRole="Marca" ToRole="Automovil" />
+        </EntityType>
+        <EntityType Name="Tipo_Automovil">
+          <Key>
+            <PropertyRef Name="ID_Tipo" />
+          </Key>
+          <Property Name="ID_Tipo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Tipo" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Automovils" Relationship="Self.FK_Automovil_Tipo_Automovil" FromRole="Tipo_Automovil" ToRole="Automovil" />
+        </EntityType>
+        <EntityType Name="Tipo_Trans">
+          <Key>
+            <PropertyRef Name="ID_TipoTrans" />
+          </Key>
+          <Property Name="ID_TipoTrans" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Tipo_Trans1" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Automovils" Relationship="Self.FK_Automovil_Tipo_Trans" FromRole="Tipo_Trans" ToRole="Automovil" />
+        </EntityType>
+        <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserClaims" Type="Self.AspNetUserClaim" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserClaims">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserLogins" Type="Self.AspNetUserLogin" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserLogins">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Compra_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1" />
+          <End Role="Compra" Type="Self.Compra" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Compra">
+              <PropertyRef Name="ID_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Automovil_Cant_Pasajeros">
+          <End Role="Cant_Pasajeros" Type="Self.Cant_Pasajeros" Multiplicity="1" />
+          <End Role="Automovil" Type="Self.Automovil" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cant_Pasajeros">
+              <PropertyRef Name="ID_CanPasajeros" />
+            </Principal>
+            <Dependent Role="Automovil">
+              <PropertyRef Name="ID_CantPasajeros" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Automovil_Marca">
+          <End Role="Marca" Type="Self.Marca" Multiplicity="1" />
+          <End Role="Automovil" Type="Self.Automovil" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Marca">
+              <PropertyRef Name="ID_Marca" />
+            </Principal>
+            <Dependent Role="Automovil">
+              <PropertyRef Name="ID_Marca" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Automovil_Tipo_Automovil">
+          <End Role="Tipo_Automovil" Type="Self.Tipo_Automovil" Multiplicity="1" />
+          <End Role="Automovil" Type="Self.Automovil" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tipo_Automovil">
+              <PropertyRef Name="ID_Tipo" />
+            </Principal>
+            <Dependent Role="Automovil">
+              <PropertyRef Name="ID_Tipo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Automovil_Tipo_Trans">
+          <End Role="Tipo_Trans" Type="Self.Tipo_Trans" Multiplicity="1" />
+          <End Role="Automovil" Type="Self.Automovil" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tipo_Trans">
+              <PropertyRef Name="ID_TipoTrans" />
+            </Principal>
+            <Dependent Role="Automovil">
+              <PropertyRef Name="ID_TipoTrans" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Compra_Automovil">
+          <End Role="Automovil" Type="Self.Automovil" Multiplicity="1" />
+          <End Role="Compra" Type="Self.Compra" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Automovil">
+              <PropertyRef Name="ID_Auto" />
+            </Principal>
+            <Dependent Role="Compra">
+              <PropertyRef Name="ID_Auto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Condicion_Automovil">
+          <End Role="Automovil" Type="Self.Automovil" Multiplicity="1" />
+          <End Role="Condicion" Type="Self.Condicion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Automovil">
+              <PropertyRef Name="ID_Auto" />
+            </Principal>
+            <Dependent Role="Condicion">
+              <PropertyRef Name="ID_Auto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Compra_Empleados">
+          <End Role="Empleados" Type="Self.Empleado" Multiplicity="1" />
+          <End Role="Compra" Type="Self.Compra" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleados">
+              <PropertyRef Name="ID_Empleado" />
+            </Principal>
+            <Dependent Role="Compra">
+              <PropertyRef Name="ID_Empleado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="AspNetUserRoles">
+          <End Role="AspNetRoles" Type="Self.AspNetRole" Multiplicity="*" />
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="DealersEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRole" />
+          <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaim" />
+          <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogin" />
+          <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUser" />
+          <EntitySet Name="Automovils" EntityType="Self.Automovil" />
+          <EntitySet Name="Cant_Pasajeros" EntityType="Self.Cant_Pasajeros" />
+          <EntitySet Name="Compras" EntityType="Self.Compra" />
+          <EntitySet Name="Condicions" EntityType="Self.Condicion" />
+          <EntitySet Name="Empleados" EntityType="Self.Empleado" />
+          <EntitySet Name="Marcas" EntityType="Self.Marca" />
+          <EntitySet Name="Tipo_Automovil" EntityType="Self.Tipo_Automovil" />
+          <EntitySet Name="Tipo_Trans" EntityType="Self.Tipo_Trans" />
+          <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Compra_AspNetUsers" Association="Self.FK_Compra_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Compra" EntitySet="Compras" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Automovil_Cant_Pasajeros" Association="Self.FK_Automovil_Cant_Pasajeros">
+            <End Role="Cant_Pasajeros" EntitySet="Cant_Pasajeros" />
+            <End Role="Automovil" EntitySet="Automovils" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Automovil_Marca" Association="Self.FK_Automovil_Marca">
+            <End Role="Marca" EntitySet="Marcas" />
+            <End Role="Automovil" EntitySet="Automovils" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Automovil_Tipo_Automovil" Association="Self.FK_Automovil_Tipo_Automovil">
+            <End Role="Tipo_Automovil" EntitySet="Tipo_Automovil" />
+            <End Role="Automovil" EntitySet="Automovils" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Automovil_Tipo_Trans" Association="Self.FK_Automovil_Tipo_Trans">
+            <End Role="Tipo_Trans" EntitySet="Tipo_Trans" />
+            <End Role="Automovil" EntitySet="Automovils" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Compra_Automovil" Association="Self.FK_Compra_Automovil">
+            <End Role="Automovil" EntitySet="Automovils" />
+            <End Role="Compra" EntitySet="Compras" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Condicion_Automovil" Association="Self.FK_Condicion_Automovil">
+            <End Role="Automovil" EntitySet="Automovils" />
+            <End Role="Condicion" EntitySet="Condicions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Compra_Empleados" Association="Self.FK_Compra_Empleados">
+            <End Role="Empleados" EntitySet="Empleados" />
+            <End Role="Compra" EntitySet="Compras" />
+          </AssociationSet>
+          <AssociationSet Name="AspNetUserRoles" Association="Self.AspNetUserRoles">
+            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DealersModelStoreContainer" CdmEntityContainer="DealersEntities">
+          <EntitySetMapping Name="AspNetRoles">
+            <EntityTypeMapping TypeName="DealersModel.AspNetRole">
+              <MappingFragment StoreEntitySet="AspNetRoles">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUserClaims">
+            <EntityTypeMapping TypeName="DealersModel.AspNetUserClaim">
+              <MappingFragment StoreEntitySet="AspNetUserClaims">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ClaimType" ColumnName="ClaimType" />
+                <ScalarProperty Name="ClaimValue" ColumnName="ClaimValue" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUserLogins">
+            <EntityTypeMapping TypeName="DealersModel.AspNetUserLogin">
+              <MappingFragment StoreEntitySet="AspNetUserLogins">
+                <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
+                <ScalarProperty Name="ProviderKey" ColumnName="ProviderKey" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUsers">
+            <EntityTypeMapping TypeName="DealersModel.AspNetUser">
+              <MappingFragment StoreEntitySet="AspNetUsers">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
+                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+                <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
+                <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
+                <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
+                <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
+                <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Automovils">
+            <EntityTypeMapping TypeName="DealersModel.Automovil">
+              <MappingFragment StoreEntitySet="Automovil">
+                <ScalarProperty Name="ID_Auto" ColumnName="ID_Auto" />
+                <ScalarProperty Name="ID_Marca" ColumnName="ID_Marca" />
+                <ScalarProperty Name="Modelo" ColumnName="Modelo" />
+                <ScalarProperty Name="Año_Fabricacion" ColumnName="Año_Fabricacion" />
+                <ScalarProperty Name="ID_Tipo" ColumnName="ID_Tipo" />
+                <ScalarProperty Name="ID_CantPasajeros" ColumnName="ID_CantPasajeros" />
+                <ScalarProperty Name="ID_TipoTrans" ColumnName="ID_TipoTrans" />
+                <ScalarProperty Name="Precio" ColumnName="Precio" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Cant_Pasajeros">
+            <EntityTypeMapping TypeName="DealersModel.Cant_Pasajeros">
+              <MappingFragment StoreEntitySet="Cant_Pasajeros">
+                <ScalarProperty Name="ID_CanPasajeros" ColumnName="ID_CanPasajeros" />
+                <ScalarProperty Name="CanPasajeros" ColumnName="CanPasajeros" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Compras">
+            <EntityTypeMapping TypeName="DealersModel.Compra">
+              <MappingFragment StoreEntitySet="Compra">
+                <ScalarProperty Name="ID_Compra" ColumnName="ID_Compra" />
+                <ScalarProperty Name="ID_User" ColumnName="ID_User" />
+                <ScalarProperty Name="ID_Empleado" ColumnName="ID_Empleado" />
+                <ScalarProperty Name="ID_Auto" ColumnName="ID_Auto" />
+                <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
+                <ScalarProperty Name="Total" ColumnName="Total" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Condicions">
+            <EntityTypeMapping TypeName="DealersModel.Condicion">
+              <MappingFragment StoreEntitySet="Condicion">
+                <ScalarProperty Name="ID_Condicion" ColumnName="ID_Condicion" />
+                <ScalarProperty Name="Condicion1" ColumnName="Condicion" />
+                <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
+                <ScalarProperty Name="ID_Auto" ColumnName="ID_Auto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Empleados">
+            <EntityTypeMapping TypeName="DealersModel.Empleado">
+              <MappingFragment StoreEntitySet="Empleados">
+                <ScalarProperty Name="ID_Empleado" ColumnName="ID_Empleado" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Apellido" ColumnName="Apellido" />
+                <ScalarProperty Name="Cedula" ColumnName="Cedula" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Marcas">
+            <EntityTypeMapping TypeName="DealersModel.Marca">
+              <MappingFragment StoreEntitySet="Marca">
+                <ScalarProperty Name="ID_Marca" ColumnName="ID_Marca" />
+                <ScalarProperty Name="Marca1" ColumnName="Marca" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tipo_Automovil">
+            <EntityTypeMapping TypeName="DealersModel.Tipo_Automovil">
+              <MappingFragment StoreEntitySet="Tipo_Automovil">
+                <ScalarProperty Name="ID_Tipo" ColumnName="ID_Tipo" />
+                <ScalarProperty Name="Tipo" ColumnName="Tipo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tipo_Trans">
+            <EntityTypeMapping TypeName="DealersModel.Tipo_Trans">
+              <MappingFragment StoreEntitySet="Tipo_Trans">
+                <ScalarProperty Name="ID_TipoTrans" ColumnName="ID_TipoTrans" />
+                <ScalarProperty Name="Tipo_Trans1" ColumnName="Tipo_Trans" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="AspNetUserRoles" TypeName="DealersModel.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
+            <EndProperty Name="AspNetRoles">
+              <ScalarProperty Name="Id" ColumnName="RoleId" />
+            </EndProperty>
+            <EndProperty Name="AspNetUsers">
+              <ScalarProperty Name="Id" ColumnName="UserId" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
