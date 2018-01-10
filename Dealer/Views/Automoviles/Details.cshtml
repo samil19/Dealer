@@ -1,0 +1,74 @@
+﻿@model Dealer.Automovil
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Automovil</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Modelo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Modelo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Año_Fabricacion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Año_Fabricacion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Precio)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Precio)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Cant_Pasajeros.ID_CanPasajeros)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cant_Pasajeros.ID_CanPasajeros)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Marca.Marca1)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Marca.Marca1)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Tipo_Automovil.Tipo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Tipo_Automovil.Tipo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Tipo_Trans.Tipo_Trans1)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Tipo_Trans.Tipo_Trans1)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID_Auto }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

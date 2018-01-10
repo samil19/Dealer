@@ -13,7 +13,23 @@
                 <li>@Html.ActionLink("Home", "Index", "Home")</li>
                 <li>@Html.ActionLink("About", "About", "Home")</li>
                 <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                <li>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="true">Dropdown <span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li>@Html.ActionLink("Automoviles", "Index", "Automoviles")</li>
+                        <li>@Html.ActionLink("Cantidad de Pasajeros", "Index", "Cant_Pasajeros")</li>
+                        <li>@Html.ActionLink("Compras", "Index", "Compras")</li>
+                        <li>@Html.ActionLink("Condiciones", "Index", "Condicions")</li>
+                        <li>@Html.ActionLink("Empleados", "Index", "Empleados")</li>
+                        <li>@Html.ActionLink("Marcas", "Index", "Marcas")</li>
+                        <li>@Html.ActionLink("Sucursales", "Index", "Sucursales")</li>
+                        <li>@Html.ActionLink("Tipo de Automoviles", "Index", "Tipo_Automoviles")</li>
+                        <li>@Html.ActionLink("Tipo de Transmision", "Index", "Tipo_Trans")</li>
+                        <li>@Html.ActionLink("Ubicacion", "Index", "Ubicaciones")</li>
+                    </ul>
+                </li>
             </ul>
+            
             @Html.Partial("_LoginPartial")
         </div>
     </div>
