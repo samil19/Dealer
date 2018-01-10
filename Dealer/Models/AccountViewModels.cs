@@ -70,6 +70,20 @@ namespace Dealer.Models
         public string Email { get; set; }
 
         [Required]
+        [Display(Name = "Nombre")]
+        public string Nombre { get; set; }
+
+        [Required]
+        [Display(Name = "Apellido")]
+        public string Apellido { get; set; }
+
+        [Display(Name = "Latitud")]
+        public float Latitud { get; set; }
+
+        [Display(Name = "Longitud")]
+        public float Longitud { get; set; }
+
+        [Required]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]

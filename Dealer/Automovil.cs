@@ -19,6 +19,7 @@ namespace Dealer
         {
             this.Compras = new HashSet<Compra>();
             this.Condicions = new HashSet<Condicion>();
+            this.Ubicacions = new HashSet<Ubicacion>();
         }
     
         public int ID_Auto { get; set; }
@@ -38,5 +39,7 @@ namespace Dealer
         public virtual ICollection<Compra> Compras { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Condicion> Condicions { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Ubicacion> Ubicacions { get; set; }
     }
 }

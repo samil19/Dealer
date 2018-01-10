@@ -37,5 +37,7 @@ namespace Dealer
         public virtual DbSet<Marca> Marcas { get; set; }
         public virtual DbSet<Tipo_Automovil> Tipo_Automovil { get; set; }
         public virtual DbSet<Tipo_Trans> Tipo_Trans { get; set; }
+        public virtual DbSet<Sucursal> Sucursals { get; set; }
+        public virtual DbSet<Ubicacion> Ubicacions { get; set; }
     }
 }

@@ -28,6 +28,10 @@
         <AssociationConnector Association="DealersModel.FK_Condicion_Automovil" ManuallyRouted="false" />
         <AssociationConnector Association="DealersModel.FK_Compra_Empleados" ManuallyRouted="false" />
         <AssociationConnector Association="DealersModel.AspNetUserRoles" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="DealersModel.Sucursal" Width="1.5" PointX="6" PointY="9.875" />
+        <EntityTypeShape EntityType="DealersModel.Ubicacion" Width="1.5" PointX="8.25" PointY="3" />
+        <AssociationConnector Association="DealersModel.FK_Ubicacion_Automovil" />
+        <AssociationConnector Association="DealersModel.FK_Ubicacion_Sucursal" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
