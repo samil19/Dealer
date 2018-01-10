@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Dealer.Condicion>
+﻿@model IEnumerable<Dealer.Detalle>
 
 @{
     ViewBag.Title = "Index";
@@ -12,13 +12,22 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Condicion1)
+            @Html.DisplayNameFor(model => model.Condicion)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Cantidad)
         </th>
         <th>
+            @Html.DisplayNameFor(model => model.Detalles)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.Automovil.Modelo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Automovil1.Modelo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Sucursal.Nombre)
         </th>
         <th></th>
     </tr>
@@ -26,13 +35,22 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.Condicion1)
+            @Html.DisplayFor(modelItem => item.Condicion)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Cantidad)
         </td>
         <td>
+            @Html.DisplayFor(modelItem => item.Detalles)
+        </td>
+        <td>
             @Html.DisplayFor(modelItem => item.Automovil.Modelo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Automovil1.Modelo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Sucursal.Nombre)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.ID_Condicion }) |

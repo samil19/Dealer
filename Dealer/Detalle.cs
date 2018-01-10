@@ -12,13 +12,17 @@ namespace Dealer
     using System;
     using System.Collections.Generic;
     
-    public partial class Ubicacion
+    public partial class Detalle
     {
-        public int ID_Ubicacion { get; set; }
-        public int ID_Sucursal { get; set; }
+        public int ID_Condicion { get; set; }
         public int ID_Auto { get; set; }
+        public string Condicion { get; set; }
+        public int Cantidad { get; set; }
+        public int ID_Sucursal { get; set; }
+        public string Detalles { get; set; }
     
         public virtual Automovil Automovil { get; set; }
+        public virtual Automovil Automovil1 { get; set; }
         public virtual Sucursal Sucursal { get; set; }
     }
 }

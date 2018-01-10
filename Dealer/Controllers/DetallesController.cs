@@ -10,116 +10,120 @@ using Dealer;
 
 namespace Dealer.Controllers
 {
-    public class UbicacionesController : Controller
+    public class DetallesController : Controller
     {
         private DealersEntities db = new DealersEntities();
 
-        // GET: Ubicaciones
+        // GET: Detalles
         public ActionResult Index()
         {
-            var ubicacions = db.Ubicacions.Include(u => u.Automovil).Include(u => u.Sucursal);
-            return View(ubicacions.ToList());
+            var detalles = db.Detalles.Include(d => d.Automovil).Include(d => d.Automovil1).Include(d => d.Sucursal);
+            return View(detalles.ToList());
         }
 
-        // GET: Ubicaciones/Details/5
+        // GET: Detalles/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Ubicacion ubicacion = db.Ubicacions.Find(id);
-            if (ubicacion == null)
+            Detalle detalle = db.Detalles.Find(id);
+            if (detalle == null)
             {
                 return HttpNotFound();
             }
-            return View(ubicacion);
+            return View(detalle);
         }
 
-        // GET: Ubicaciones/Create
+        // GET: Detalles/Create
         public ActionResult Create()
         {
+            ViewBag.ID_Sucursal = new SelectList(db.Automovils, "ID_Auto", "Modelo");
             ViewBag.ID_Auto = new SelectList(db.Automovils, "ID_Auto", "Modelo");
-            ViewBag.ID_Sucursal = new SelectList(db.Sucursals, "ID_Sucursal", "Latitud");
+            ViewBag.ID_Sucursal = new SelectList(db.Sucursals, "ID_Sucursal", "Nombre");
             return View();
         }
 
-        // POST: Ubicaciones/Create
+        // POST: Detalles/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID_Ubicacion,ID_Sucursal,ID_Auto")] Ubicacion ubicacion)
+        public ActionResult Create([Bind(Include = "ID_Condicion,ID_Auto,Condicion,Cantidad,ID_Sucursal,Detalles")] Detalle detalle)
         {
             if (ModelState.IsValid)
             {
-                db.Ubicacions.Add(ubicacion);
+                db.Detalles.Add(detalle);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.ID_Auto = new SelectList(db.Automovils, "ID_Auto", "Modelo", ubicacion.ID_Auto);
-            ViewBag.ID_Sucursal = new SelectList(db.Sucursals, "ID_Sucursal", "Latitud", ubicacion.ID_Sucursal);
-            return View(ubicacion);
+            ViewBag.ID_Sucursal = new SelectList(db.Automovils, "ID_Auto", "Modelo", detalle.ID_Sucursal);
+            ViewBag.ID_Auto = new SelectList(db.Automovils, "ID_Auto", "Modelo", detalle.ID_Auto);
+            ViewBag.ID_Sucursal = new SelectList(db.Sucursals, "ID_Sucursal", "Nombre", detalle.ID_Sucursal);
+            return View(detalle);
         }
 
-        // GET: Ubicaciones/Edit/5
+        // GET: Detalles/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Ubicacion ubicacion = db.Ubicacions.Find(id);
-            if (ubicacion == null)
+            Detalle detalle = db.Detalles.Find(id);
+            if (detalle == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.ID_Auto = new SelectList(db.Automovils, "ID_Auto", "Modelo", ubicacion.ID_Auto);
-            ViewBag.ID_Sucursal = new SelectList(db.Sucursals, "ID_Sucursal", "Latitud", ubicacion.ID_Sucursal);
-            return View(ubicacion);
+            ViewBag.ID_Sucursal = new SelectList(db.Automovils, "ID_Auto", "Modelo", detalle.ID_Sucursal);
+            ViewBag.ID_Auto = new SelectList(db.Automovils, "ID_Auto", "Modelo", detalle.ID_Auto);
+            ViewBag.ID_Sucursal = new SelectList(db.Sucursals, "ID_Sucursal", "Nombre", detalle.ID_Sucursal);
+            return View(detalle);
         }
 
-        // POST: Ubicaciones/Edit/5
+        // POST: Detalles/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID_Ubicacion,ID_Sucursal,ID_Auto")] Ubicacion ubicacion)
+        public ActionResult Edit([Bind(Include = "ID_Condicion,ID_Auto,Condicion,Cantidad,ID_Sucursal,Detalles")] Detalle detalle)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(ubicacion).State = EntityState.Modified;
+                db.Entry(detalle).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.ID_Auto = new SelectList(db.Automovils, "ID_Auto", "Modelo", ubicacion.ID_Auto);
-            ViewBag.ID_Sucursal = new SelectList(db.Sucursals, "ID_Sucursal", "Latitud", ubicacion.ID_Sucursal);
-            return View(ubicacion);
+            ViewBag.ID_Sucursal = new SelectList(db.Automovils, "ID_Auto", "Modelo", detalle.ID_Sucursal);
+            ViewBag.ID_Auto = new SelectList(db.Automovils, "ID_Auto", "Modelo", detalle.ID_Auto);
+            ViewBag.ID_Sucursal = new SelectList(db.Sucursals, "ID_Sucursal", "Nombre", detalle.ID_Sucursal);
+            return View(detalle);
         }
 
-        // GET: Ubicaciones/Delete/5
+        // GET: Detalles/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Ubicacion ubicacion = db.Ubicacions.Find(id);
-            if (ubicacion == null)
+            Detalle detalle = db.Detalles.Find(id);
+            if (detalle == null)
             {
                 return HttpNotFound();
             }
-            return View(ubicacion);
+            return View(detalle);
         }
 
-        // POST: Ubicaciones/Delete/5
+        // POST: Detalles/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Ubicacion ubicacion = db.Ubicacions.Find(id);
-            db.Ubicacions.Remove(ubicacion);
+            Detalle detalle = db.Detalles.Find(id);
+            db.Detalles.Remove(detalle);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

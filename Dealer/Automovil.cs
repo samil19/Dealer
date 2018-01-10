@@ -18,8 +18,8 @@ namespace Dealer
         public Automovil()
         {
             this.Compras = new HashSet<Compra>();
-            this.Condicions = new HashSet<Condicion>();
-            this.Ubicacions = new HashSet<Ubicacion>();
+            this.Detalles = new HashSet<Detalle>();
+            this.Detalles1 = new HashSet<Detalle>();
         }
     
         public int ID_Auto { get; set; }
@@ -30,6 +30,7 @@ namespace Dealer
         public int ID_CantPasajeros { get; set; }
         public int ID_TipoTrans { get; set; }
         public decimal Precio { get; set; }
+        public string Tipo_Moneda { get; set; }
     
         public virtual Cant_Pasajeros Cant_Pasajeros { get; set; }
         public virtual Marca Marca { get; set; }
@@ -38,8 +39,8 @@ namespace Dealer
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Compra> Compras { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Condicion> Condicions { get; set; }
+        public virtual ICollection<Detalle> Detalles { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Ubicacion> Ubicacions { get; set; }
+        public virtual ICollection<Detalle> Detalles1 { get; set; }
     }
 }

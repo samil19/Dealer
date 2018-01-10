@@ -72,6 +72,7 @@
           <Property Name="ID_CantPasajeros" Type="int" Nullable="false" />
           <Property Name="ID_TipoTrans" Type="int" Nullable="false" />
           <Property Name="Precio" Type="money" Nullable="false" />
+          <Property Name="Tipo_Moneda" Type="varchar" MaxLength="10" Nullable="false" />
         </EntityType>
         <EntityType Name="Cant_Pasajeros">
           <Key>
@@ -91,14 +92,15 @@
           <Property Name="Cantidad" Type="int" Nullable="false" />
           <Property Name="Total" Type="money" Nullable="false" />
         </EntityType>
-        <EntityType Name="Condicion">
+        <EntityType Name="Detalles">
           <Key>
             <PropertyRef Name="ID_Condicion" />
           </Key>
           <Property Name="ID_Condicion" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_Auto" Type="int" Nullable="false" />
           <Property Name="Condicion" Type="varchar" MaxLength="15" Nullable="false" />
           <Property Name="Cantidad" Type="int" Nullable="false" />
-          <Property Name="ID_Auto" Type="int" Nullable="false" />
+          <Property Name="ID_Sucursal" Type="int" Nullable="false" />
           <Property Name="Detalles" Type="varchar(max)" />
         </EntityType>
         <EntityType Name="Empleados">
@@ -124,6 +126,7 @@
             <PropertyRef Name="ID_Sucursal" />
           </Key>
           <Property Name="ID_Sucursal" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="RNC" Type="int" Nullable="false" />
           <Property Name="Telefono" Type="int" Nullable="false" />
           <Property Name="Latitud" Type="varchar" MaxLength="50" Nullable="false" />
@@ -142,14 +145,6 @@
           </Key>
           <Property Name="ID_TipoTrans" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Tipo_Trans" Type="varchar" MaxLength="25" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Ubicacion">
-          <Key>
-            <PropertyRef Name="ID_Ubicacion" />
-          </Key>
-          <Property Name="ID_Ubicacion" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="ID_Sucursal" Type="int" Nullable="false" />
-          <Property Name="ID_Auto" Type="int" Nullable="false" />
         </EntityType>
         <Association Name="FK_Automovil_Cant_Pasajeros">
           <End Role="Cant_Pasajeros" Type="Self.Cant_Pasajeros" Multiplicity="1" />
@@ -235,15 +230,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Condicion_Automovil">
-          <End Role="Automovil" Type="Self.Automovil" Multiplicity="1" />
-          <End Role="Condicion" Type="Self.Condicion" Multiplicity="*" />
+        <Association Name="FK_Condicion_Sucursal">
+          <End Role="Sucursal" Type="Self.Sucursal" Multiplicity="1" />
+          <End Role="Detalles" Type="Self.Detalles" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Automovil">
-              <PropertyRef Name="ID_Auto" />
+            <Principal Role="Sucursal">
+              <PropertyRef Name="ID_Sucursal" />
             </Principal>
-            <Dependent Role="Condicion">
-              <PropertyRef Name="ID_Auto" />
+            <Dependent Role="Detalles">
+              <PropertyRef Name="ID_Sucursal" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -303,27 +298,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Ubicacion_Automovil">
+        <Association Name="FK_Detalles_Automovil1">
           <End Role="Automovil" Type="Self.Automovil" Multiplicity="1" />
-          <End Role="Ubicacion" Type="Self.Ubicacion" Multiplicity="*" />
+          <End Role="Detalles" Type="Self.Detalles" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Automovil">
               <PropertyRef Name="ID_Auto" />
             </Principal>
-            <Dependent Role="Ubicacion">
+            <Dependent Role="Detalles">
               <PropertyRef Name="ID_Auto" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Ubicacion_Sucursal">
-          <End Role="Sucursal" Type="Self.Sucursal" Multiplicity="1" />
-          <End Role="Ubicacion" Type="Self.Ubicacion" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Sucursal">
-              <PropertyRef Name="ID_Sucursal" />
-            </Principal>
-            <Dependent Role="Ubicacion">
-              <PropertyRef Name="ID_Sucursal" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -336,13 +319,12 @@
           <EntitySet Name="Automovil" EntityType="Self.Automovil" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Cant_Pasajeros" EntityType="Self.Cant_Pasajeros" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Compra" EntityType="Self.Compra" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Condicion" EntityType="Self.Condicion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Detalles" EntityType="Self.Detalles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Empleados" EntityType="Self.Empleados" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Marca" EntityType="Self.Marca" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sucursal" EntityType="Self.Sucursal" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tipo_Automovil" EntityType="Self.Tipo_Automovil" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tipo_Trans" EntityType="Self.Tipo_Trans" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Ubicacion" EntityType="Self.Ubicacion" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Automovil_Cant_Pasajeros" Association="Self.FK_Automovil_Cant_Pasajeros">
             <End Role="Cant_Pasajeros" EntitySet="Cant_Pasajeros" />
             <End Role="Automovil" EntitySet="Automovil" />
@@ -371,9 +353,9 @@
             <End Role="Empleados" EntitySet="Empleados" />
             <End Role="Compra" EntitySet="Compra" />
           </AssociationSet>
-          <AssociationSet Name="FK_Condicion_Automovil" Association="Self.FK_Condicion_Automovil">
-            <End Role="Automovil" EntitySet="Automovil" />
-            <End Role="Condicion" EntitySet="Condicion" />
+          <AssociationSet Name="FK_Condicion_Sucursal" Association="Self.FK_Condicion_Sucursal">
+            <End Role="Sucursal" EntitySet="Sucursal" />
+            <End Role="Detalles" EntitySet="Detalles" />
           </AssociationSet>
           <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
@@ -391,13 +373,9 @@
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
           </AssociationSet>
-          <AssociationSet Name="FK_Ubicacion_Automovil" Association="Self.FK_Ubicacion_Automovil">
+          <AssociationSet Name="FK_Detalles_Automovil1" Association="Self.FK_Detalles_Automovil1">
             <End Role="Automovil" EntitySet="Automovil" />
-            <End Role="Ubicacion" EntitySet="Ubicacion" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Ubicacion_Sucursal" Association="Self.FK_Ubicacion_Sucursal">
-            <End Role="Sucursal" EntitySet="Sucursal" />
-            <End Role="Ubicacion" EntitySet="Ubicacion" />
+            <End Role="Detalles" EntitySet="Detalles" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -475,8 +453,9 @@
           <NavigationProperty Name="Tipo_Automovil" Relationship="Self.FK_Automovil_Tipo_Automovil" FromRole="Automovil" ToRole="Tipo_Automovil" />
           <NavigationProperty Name="Tipo_Trans" Relationship="Self.FK_Automovil_Tipo_Trans" FromRole="Automovil" ToRole="Tipo_Trans" />
           <NavigationProperty Name="Compras" Relationship="Self.FK_Compra_Automovil" FromRole="Automovil" ToRole="Compra" />
-          <NavigationProperty Name="Condicions" Relationship="Self.FK_Condicion_Automovil" FromRole="Automovil" ToRole="Condicion" />
-          <NavigationProperty Name="Ubicacions" Relationship="DealersModel.FK_Ubicacion_Automovil" FromRole="Automovil" ToRole="Ubicacion" />
+          <Property Name="Tipo_Moneda" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Detalles" Relationship="DealersModel.FK_Condicion_Automovil1" FromRole="Automovil" ToRole="Detalle" />
+          <NavigationProperty Name="Detalles1" Relationship="DealersModel.FK_Detalles_Automovil1" FromRole="Automovil" ToRole="Detalle" />
         </EntityType>
         <EntityType Name="Cant_Pasajeros">
           <Key>
@@ -499,17 +478,6 @@
           <NavigationProperty Name="AspNetUser" Relationship="Self.FK_Compra_AspNetUsers" FromRole="Compra" ToRole="AspNetUsers" />
           <NavigationProperty Name="Automovil" Relationship="Self.FK_Compra_Automovil" FromRole="Compra" ToRole="Automovil" />
           <NavigationProperty Name="Empleado" Relationship="Self.FK_Compra_Empleados" FromRole="Compra" ToRole="Empleados" />
-        </EntityType>
-        <EntityType Name="Condicion">
-          <Key>
-            <PropertyRef Name="ID_Condicion" />
-          </Key>
-          <Property Name="ID_Condicion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Condicion1" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Cantidad" Type="Int32" Nullable="false" />
-          <Property Name="ID_Auto" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Automovil" Relationship="Self.FK_Condicion_Automovil" FromRole="Condicion" ToRole="Automovil" />
-          <Property Name="Detalles" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Empleado">
           <Key>
@@ -647,18 +615,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Condicion_Automovil">
-          <End Role="Automovil" Type="Self.Automovil" Multiplicity="1" />
-          <End Role="Condicion" Type="Self.Condicion" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Automovil">
-              <PropertyRef Name="ID_Auto" />
-            </Principal>
-            <Dependent Role="Condicion">
-              <PropertyRef Name="ID_Auto" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Compra_Empleados">
           <End Role="Empleados" Type="Self.Empleado" Multiplicity="1" />
           <End Role="Compra" Type="Self.Compra" Multiplicity="*" />
@@ -683,7 +639,6 @@
           <EntitySet Name="Automovils" EntityType="Self.Automovil" />
           <EntitySet Name="Cant_Pasajeros" EntityType="Self.Cant_Pasajeros" />
           <EntitySet Name="Compras" EntityType="Self.Compra" />
-          <EntitySet Name="Condicions" EntityType="Self.Condicion" />
           <EntitySet Name="Empleados" EntityType="Self.Empleado" />
           <EntitySet Name="Marcas" EntityType="Self.Marca" />
           <EntitySet Name="Tipo_Automovil" EntityType="Self.Tipo_Automovil" />
@@ -720,10 +675,6 @@
             <End Role="Automovil" EntitySet="Automovils" />
             <End Role="Compra" EntitySet="Compras" />
           </AssociationSet>
-          <AssociationSet Name="FK_Condicion_Automovil" Association="Self.FK_Condicion_Automovil">
-            <End Role="Automovil" EntitySet="Automovils" />
-            <End Role="Condicion" EntitySet="Condicions" />
-          </AssociationSet>
           <AssociationSet Name="FK_Compra_Empleados" Association="Self.FK_Compra_Empleados">
             <End Role="Empleados" EntitySet="Empleados" />
             <End Role="Compra" EntitySet="Compras" />
@@ -732,58 +683,79 @@
             <End Role="AspNetRoles" EntitySet="AspNetRoles" />
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
           </AssociationSet>
-          <EntitySet Name="Sucursals" EntityType="DealersModel.Sucursal" />
-          <EntitySet Name="Ubicacions" EntityType="DealersModel.Ubicacion" />
-          <AssociationSet Name="FK_Ubicacion_Automovil" Association="DealersModel.FK_Ubicacion_Automovil">
+          <EntitySet Name="Detalles" EntityType="DealersModel.Detalle" />
+          <AssociationSet Name="FK_Condicion_Automovil1" Association="DealersModel.FK_Condicion_Automovil1">
             <End Role="Automovil" EntitySet="Automovils" />
-            <End Role="Ubicacion" EntitySet="Ubicacions" />
+            <End Role="Detalle" EntitySet="Detalles" />
           </AssociationSet>
-          <AssociationSet Name="FK_Ubicacion_Sucursal" Association="DealersModel.FK_Ubicacion_Sucursal">
+          <AssociationSet Name="FK_Detalles_Automovil1" Association="DealersModel.FK_Detalles_Automovil1">
+            <End Role="Automovil" EntitySet="Automovils" />
+            <End Role="Detalle" EntitySet="Detalles" />
+          </AssociationSet>
+          <EntitySet Name="Sucursals" EntityType="DealersModel.Sucursal" />
+          <AssociationSet Name="FK_Condicion_Sucursal" Association="DealersModel.FK_Condicion_Sucursal">
             <End Role="Sucursal" EntitySet="Sucursals" />
-            <End Role="Ubicacion" EntitySet="Ubicacions" />
+            <End Role="Detalle" EntitySet="Detalles" />
           </AssociationSet>
         </EntityContainer>
+        <EntityType Name="Detalle">
+          <Key>
+            <PropertyRef Name="ID_Condicion" />
+          </Key>
+          <Property Name="ID_Condicion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_Auto" Type="Int32" Nullable="false" />
+          <Property Name="Condicion" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="Cantidad" Type="Int32" Nullable="false" />
+          <Property Name="ID_Sucursal" Type="Int32" Nullable="false" />
+          <Property Name="Detalles" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Automovil" Relationship="DealersModel.FK_Condicion_Automovil1" FromRole="Detalle" ToRole="Automovil" />
+          <NavigationProperty Name="Automovil1" Relationship="DealersModel.FK_Detalles_Automovil1" FromRole="Detalle" ToRole="Automovil" />
+          <NavigationProperty Name="Sucursal" Relationship="DealersModel.FK_Condicion_Sucursal" FromRole="Detalle" ToRole="Sucursal" />
+        </EntityType>
+        <Association Name="FK_Condicion_Automovil1">
+          <End Type="DealersModel.Automovil" Role="Automovil" Multiplicity="1" />
+          <End Type="DealersModel.Detalle" Role="Detalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Automovil">
+              <PropertyRef Name="ID_Auto" />
+            </Principal>
+            <Dependent Role="Detalle">
+              <PropertyRef Name="ID_Sucursal" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Detalles_Automovil1">
+          <End Type="DealersModel.Automovil" Role="Automovil" Multiplicity="1" />
+          <End Type="DealersModel.Detalle" Role="Detalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Automovil">
+              <PropertyRef Name="ID_Auto" />
+            </Principal>
+            <Dependent Role="Detalle">
+              <PropertyRef Name="ID_Auto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityType Name="Sucursal">
           <Key>
             <PropertyRef Name="ID_Sucursal" />
           </Key>
           <Property Name="ID_Sucursal" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="RNC" Type="Int32" Nullable="false" />
           <Property Name="Telefono" Type="Int32" Nullable="false" />
           <Property Name="Latitud" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Longitud" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Ubicacions" Relationship="DealersModel.FK_Ubicacion_Sucursal" FromRole="Sucursal" ToRole="Ubicacion" />
+          <NavigationProperty Name="Detalles" Relationship="DealersModel.FK_Condicion_Sucursal" FromRole="Sucursal" ToRole="Detalle" />
         </EntityType>
-        <EntityType Name="Ubicacion">
-          <Key>
-            <PropertyRef Name="ID_Ubicacion" />
-          </Key>
-          <Property Name="ID_Ubicacion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ID_Sucursal" Type="Int32" Nullable="false" />
-          <Property Name="ID_Auto" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Automovil" Relationship="DealersModel.FK_Ubicacion_Automovil" FromRole="Ubicacion" ToRole="Automovil" />
-          <NavigationProperty Name="Sucursal" Relationship="DealersModel.FK_Ubicacion_Sucursal" FromRole="Ubicacion" ToRole="Sucursal" />
-        </EntityType>
-        <Association Name="FK_Ubicacion_Automovil">
-          <End Type="DealersModel.Automovil" Role="Automovil" Multiplicity="1" />
-          <End Type="DealersModel.Ubicacion" Role="Ubicacion" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Automovil">
-              <PropertyRef Name="ID_Auto" />
-            </Principal>
-            <Dependent Role="Ubicacion">
-              <PropertyRef Name="ID_Auto" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Ubicacion_Sucursal">
+        <Association Name="FK_Condicion_Sucursal">
           <End Type="DealersModel.Sucursal" Role="Sucursal" Multiplicity="1" />
-          <End Type="DealersModel.Ubicacion" Role="Ubicacion" Multiplicity="*" />
+          <End Type="DealersModel.Detalle" Role="Detalle" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Sucursal">
               <PropertyRef Name="ID_Sucursal" />
             </Principal>
-            <Dependent Role="Ubicacion">
+            <Dependent Role="Detalle">
               <PropertyRef Name="ID_Sucursal" />
             </Dependent>
           </ReferentialConstraint>
@@ -846,6 +818,7 @@
           <EntitySetMapping Name="Automovils">
             <EntityTypeMapping TypeName="DealersModel.Automovil">
               <MappingFragment StoreEntitySet="Automovil">
+                <ScalarProperty Name="Tipo_Moneda" ColumnName="Tipo_Moneda" />
                 <ScalarProperty Name="ID_Auto" ColumnName="ID_Auto" />
                 <ScalarProperty Name="ID_Marca" ColumnName="ID_Marca" />
                 <ScalarProperty Name="Modelo" ColumnName="Modelo" />
@@ -874,17 +847,6 @@
                 <ScalarProperty Name="ID_Auto" ColumnName="ID_Auto" />
                 <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
                 <ScalarProperty Name="Total" ColumnName="Total" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Condicions">
-            <EntityTypeMapping TypeName="DealersModel.Condicion">
-              <MappingFragment StoreEntitySet="Condicion">
-                <ScalarProperty Name="Detalles" ColumnName="Detalles" />
-                <ScalarProperty Name="ID_Condicion" ColumnName="ID_Condicion" />
-                <ScalarProperty Name="Condicion1" ColumnName="Condicion" />
-                <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
-                <ScalarProperty Name="ID_Auto" ColumnName="ID_Auto" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -932,6 +894,18 @@
               <ScalarProperty Name="Id" ColumnName="UserId" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="Detalles">
+            <EntityTypeMapping TypeName="DealersModel.Detalle">
+              <MappingFragment StoreEntitySet="Detalles">
+                <ScalarProperty Name="Detalles" ColumnName="Detalles" />
+                <ScalarProperty Name="ID_Sucursal" ColumnName="ID_Sucursal" />
+                <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
+                <ScalarProperty Name="Condicion" ColumnName="Condicion" />
+                <ScalarProperty Name="ID_Auto" ColumnName="ID_Auto" />
+                <ScalarProperty Name="ID_Condicion" ColumnName="ID_Condicion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Sucursals">
             <EntityTypeMapping TypeName="DealersModel.Sucursal">
               <MappingFragment StoreEntitySet="Sucursal">
@@ -939,16 +913,8 @@
                 <ScalarProperty Name="Latitud" ColumnName="Latitud" />
                 <ScalarProperty Name="Telefono" ColumnName="Telefono" />
                 <ScalarProperty Name="RNC" ColumnName="RNC" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
                 <ScalarProperty Name="ID_Sucursal" ColumnName="ID_Sucursal" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Ubicacions">
-            <EntityTypeMapping TypeName="DealersModel.Ubicacion">
-              <MappingFragment StoreEntitySet="Ubicacion">
-                <ScalarProperty Name="ID_Auto" ColumnName="ID_Auto" />
-                <ScalarProperty Name="ID_Sucursal" ColumnName="ID_Sucursal" />
-                <ScalarProperty Name="ID_Ubicacion" ColumnName="ID_Ubicacion" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -12,7 +12,6 @@
         <EntityTypeShape EntityType="DealersModel.Automovil" Width="1.5" PointX="3" PointY="2" IsExpanded="true" />
         <EntityTypeShape EntityType="DealersModel.Cant_Pasajeros" Width="1.5" PointX="0.75" PointY="3" IsExpanded="true" />
         <EntityTypeShape EntityType="DealersModel.Compra" Width="1.5" PointX="5.25" PointY="2.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="DealersModel.Condicion" Width="1.5" PointX="5.25" PointY="6.375" IsExpanded="true" />
         <EntityTypeShape EntityType="DealersModel.Empleado" Width="1.5" PointX="3" PointY="10.5" IsExpanded="true" />
         <EntityTypeShape EntityType="DealersModel.Marca" Width="1.5" PointX="0.75" PointY="6.125" IsExpanded="true" />
         <EntityTypeShape EntityType="DealersModel.Tipo_Automovil" Width="1.5" PointX="0.75" PointY="8.5" IsExpanded="true" />
@@ -25,13 +24,13 @@
         <AssociationConnector Association="DealersModel.FK_Automovil_Tipo_Automovil" ManuallyRouted="false" />
         <AssociationConnector Association="DealersModel.FK_Automovil_Tipo_Trans" ManuallyRouted="false" />
         <AssociationConnector Association="DealersModel.FK_Compra_Automovil" ManuallyRouted="false" />
-        <AssociationConnector Association="DealersModel.FK_Condicion_Automovil" ManuallyRouted="false" />
         <AssociationConnector Association="DealersModel.FK_Compra_Empleados" ManuallyRouted="false" />
         <AssociationConnector Association="DealersModel.AspNetUserRoles" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="DealersModel.Sucursal" Width="1.5" PointX="6" PointY="9.875" />
-        <EntityTypeShape EntityType="DealersModel.Ubicacion" Width="1.5" PointX="8.25" PointY="3" />
-        <AssociationConnector Association="DealersModel.FK_Ubicacion_Automovil" />
-        <AssociationConnector Association="DealersModel.FK_Ubicacion_Sucursal" />
+        <EntityTypeShape EntityType="DealersModel.Detalle" Width="1.5" PointX="8.25" PointY="6" />
+        <AssociationConnector Association="DealersModel.FK_Condicion_Automovil1" />
+        <AssociationConnector Association="DealersModel.FK_Detalles_Automovil1" />
+        <EntityTypeShape EntityType="DealersModel.Sucursal" Width="1.5" PointX="7.375" PointY="1" />
+        <AssociationConnector Association="DealersModel.FK_Condicion_Sucursal" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

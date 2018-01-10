@@ -46,7 +46,7 @@ namespace Dealer.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID_Sucursal,RNC,Telefono,Latitud,Longitud")] Sucursal sucursal)
+        public ActionResult Create([Bind(Include = "ID_Sucursal,Nombre,RNC,Telefono,Latitud,Longitud")] Sucursal sucursal)
         {
             if (ModelState.IsValid)
             {
@@ -78,7 +78,7 @@ namespace Dealer.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID_Sucursal,RNC,Telefono,Latitud,Longitud")] Sucursal sucursal)
+        public ActionResult Edit([Bind(Include = "ID_Sucursal,Nombre,RNC,Telefono,Latitud,Longitud")] Sucursal sucursal)
         {
             if (ModelState.IsValid)
             {

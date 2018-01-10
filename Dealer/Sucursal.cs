@@ -17,16 +17,17 @@ namespace Dealer
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Sucursal()
         {
-            this.Ubicacions = new HashSet<Ubicacion>();
+            this.Detalles = new HashSet<Detalle>();
         }
     
         public int ID_Sucursal { get; set; }
+        public string Nombre { get; set; }
         public int RNC { get; set; }
         public int Telefono { get; set; }
         public string Latitud { get; set; }
         public string Longitud { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Ubicacion> Ubicacions { get; set; }
+        public virtual ICollection<Detalle> Detalles { get; set; }
     }
 }
