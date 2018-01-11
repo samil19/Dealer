@@ -191,6 +191,7 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AspNetRolesController.cs" />
     <Compile Include="Controllers\AutomovilesController.cs" />
     <Compile Include="Controllers\Cant_PasajerosController.cs" />
     <Compile Include="Controllers\ComprasController.cs" />
@@ -199,6 +200,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MarcasController.cs" />
+    <Compile Include="Controllers\RolesController.cs" />
     <Compile Include="Controllers\SucursalesController.cs" />
     <Compile Include="Controllers\Tipo_AutomovilesController.cs" />
     <Compile Include="Controllers\Tipo_TransController.cs" />
@@ -354,16 +356,25 @@
     <Content Include="Views\Tipo_Trans\Details.cshtml" />
     <Content Include="Views\Tipo_Trans\Edit.cshtml" />
     <Content Include="Views\Tipo_Trans\Index.cshtml" />
-    <Content Include="Views\Sucursales\Create.cshtml" />
-    <Content Include="Views\Sucursales\Delete.cshtml" />
-    <Content Include="Views\Sucursales\Details.cshtml" />
-    <Content Include="Views\Sucursales\Edit.cshtml" />
-    <Content Include="Views\Sucursales\Index.cshtml" />
     <Content Include="Views\Detalles\Create.cshtml" />
     <Content Include="Views\Detalles\Delete.cshtml" />
     <Content Include="Views\Detalles\Details.cshtml" />
     <Content Include="Views\Detalles\Edit.cshtml" />
     <Content Include="Views\Detalles\Index.cshtml" />
+    <Content Include="Views\Sucursales\Create.cshtml" />
+    <Content Include="Views\Sucursales\Delete.cshtml" />
+    <Content Include="Views\Sucursales\Details.cshtml" />
+    <Content Include="Views\Sucursales\Edit.cshtml" />
+    <Content Include="Views\Sucursales\Index.cshtml" />
+    <Content Include="Views\AspNetRoles\Create.cshtml" />
+    <Content Include="Views\AspNetRoles\Delete.cshtml" />
+    <Content Include="Views\AspNetRoles\Details.cshtml" />
+    <Content Include="Views\AspNetRoles\Edit.cshtml" />
+    <Content Include="Views\AspNetRoles\Index.cshtml" />
+    <Content Include="Views\Roles\Create.cshtml" />
+    <Content Include="Views\Roles\Edit.cshtml" />
+    <Content Include="Views\Roles\Index.cshtml" />
+    <Content Include="Views\Roles\ManageUserRoles.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

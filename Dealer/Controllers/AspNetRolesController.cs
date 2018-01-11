@@ -10,107 +10,107 @@ using Dealer;
 
 namespace Dealer.Controllers
 {
-    public class SucursalesController : Controller
+    public class AspNetRolesController : Controller
     {
         private DealersEntities db = new DealersEntities();
 
-        // GET: Sucursales
+        // GET: AspNetRoles
         public ActionResult Index()
         {
-            return View(db.Sucursals.ToList());
+            return View(db.AspNetRoles.ToList());
         }
 
-        // GET: Sucursales/Details/5
-        public ActionResult Details(int? id)
+        // GET: AspNetRoles/Details/5
+        public ActionResult Details(string id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Sucursal sucursal = db.Sucursals.Find(id);
-            if (sucursal == null)
+            AspNetRole aspNetRole = db.AspNetRoles.Find(id);
+            if (aspNetRole == null)
             {
                 return HttpNotFound();
             }
-            return View(sucursal);
+            return View(aspNetRole);
         }
 
-        // GET: Sucursales/Create
+        // GET: AspNetRoles/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Sucursales/Create
+        // POST: AspNetRoles/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID_Sucursal,Nombre,RNC,Telefono,Direccion,Latitud,Longitud")] Sucursal sucursal)
+        public ActionResult Create([Bind(Include = "Id,Name")] AspNetRole aspNetRole)
         {
             if (ModelState.IsValid)
             {
-                db.Sucursals.Add(sucursal);
+                db.AspNetRoles.Add(aspNetRole);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(sucursal);
+            return View(aspNetRole);
         }
 
-        // GET: Sucursales/Edit/5
-        public ActionResult Edit(int? id)
+        // GET: AspNetRoles/Edit/5
+        public ActionResult Edit(string id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Sucursal sucursal = db.Sucursals.Find(id);
-            if (sucursal == null)
+            AspNetRole aspNetRole = db.AspNetRoles.Find(id);
+            if (aspNetRole == null)
             {
                 return HttpNotFound();
             }
-            return View(sucursal);
+            return View(aspNetRole);
         }
 
-        // POST: Sucursales/Edit/5
+        // POST: AspNetRoles/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID_Sucursal,Nombre,RNC,Telefono,Direccion,Latitud,Longitud")] Sucursal sucursal)
+        public ActionResult Edit([Bind(Include = "Id,Name")] AspNetRole aspNetRole)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(sucursal).State = EntityState.Modified;
+                db.Entry(aspNetRole).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(sucursal);
+            return View(aspNetRole);
         }
 
-        // GET: Sucursales/Delete/5
-        public ActionResult Delete(int? id)
+        // GET: AspNetRoles/Delete/5
+        public ActionResult Delete(string id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Sucursal sucursal = db.Sucursals.Find(id);
-            if (sucursal == null)
+            AspNetRole aspNetRole = db.AspNetRoles.Find(id);
+            if (aspNetRole == null)
             {
                 return HttpNotFound();
             }
-            return View(sucursal);
+            return View(aspNetRole);
         }
 
-        // POST: Sucursales/Delete/5
+        // POST: AspNetRoles/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(string id)
         {
-            Sucursal sucursal = db.Sucursals.Find(id);
-            db.Sucursals.Remove(sucursal);
+            AspNetRole aspNetRole = db.AspNetRoles.Find(id);
+            db.AspNetRoles.Remove(aspNetRole);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

@@ -4,10 +4,10 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="041f8ba3020a40e38c4ece2866108032" Name="Diagram1">
-        <EntityTypeShape EntityType="DealersModel.AspNetRole" Width="1.5" PointX="0.75" PointY="14.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="DealersModel.AspNetUserClaim" Width="1.5" PointX="5.25" PointY="13.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="DealersModel.AspNetUserLogin" Width="1.5" PointX="5.25" PointY="16.25" IsExpanded="true" />
+      <Diagram DiagramId="041f8ba3020a40e38c4ece2866108032" Name="Diagram1" ZoomLevel="95">
+        <EntityTypeShape EntityType="DealersModel.AspNetRole" Width="1.5" PointX="1.25" PointY="14.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DealersModel.AspNetUserClaim" Width="2" PointX="5.25" PointY="13.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DealersModel.AspNetUserLogin" Width="1.875" PointX="5.25" PointY="16.25" IsExpanded="true" />
         <EntityTypeShape EntityType="DealersModel.AspNetUser" Width="1.5" PointX="3" PointY="13.625" IsExpanded="true" />
         <EntityTypeShape EntityType="DealersModel.Automovil" Width="1.5" PointX="3" PointY="2" IsExpanded="true" />
         <EntityTypeShape EntityType="DealersModel.Cant_Pasajeros" Width="1.5" PointX="0.75" PointY="3" IsExpanded="true" />

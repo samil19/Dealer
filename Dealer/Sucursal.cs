@@ -23,7 +23,8 @@ namespace Dealer
         public int ID_Sucursal { get; set; }
         public string Nombre { get; set; }
         public int RNC { get; set; }
-        public int Telefono { get; set; }
+        public long Telefono { get; set; }
+        public string Direccion { get; set; }
         public string Latitud { get; set; }
         public string Longitud { get; set; }
     

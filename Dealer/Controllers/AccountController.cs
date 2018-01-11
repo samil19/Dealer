@@ -151,7 +151,7 @@ namespace Dealer.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, Nombre= model.Nombre, Apellido= model.Apellido, Latitud = model.Latitud, Longitud = model.Longitud};
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, Nombre= model.Nombre, Apellido= model.Apellido};
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {

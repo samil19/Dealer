@@ -11,8 +11,6 @@ namespace Dealer.Models
     {
         public string Nombre { get; set; }
         public string Apellido { get; set; }
-        public float Latitud { get; set; }
-        public float Longitud { get; set; }
     
     public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
