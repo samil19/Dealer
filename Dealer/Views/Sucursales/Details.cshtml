@@ -41,6 +41,67 @@
         <dd>
             @Html.DisplayFor(model => model.Direccion)
         </dd>
+        
+        <dd>
+            <div class="form-group">
+                <div class="col-mdp-10">
+                    <div id="map" style="height: 300px; width: 700px;"></div>
+                    <script>
+                        function initMap() {
+                            var db = { lat: @Html.DisplayFor(model => model.Latitud), lng: @Html.DisplayFor(model => model.Longitud) };
+            var map = new google.maps.Map(document.getElementById('map'), {
+                center: db,
+                zoom: 16
+            });
+
+            var input = (
+            document.getElementById('Direccion'));
+
+            var types = document.getElementById('type-selector');
+            map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+            map.controls[google.maps.ControlPosition.TOP_LEFT].push(types);
+
+            var autocomplete = new google.maps.places.Autocomplete(input);
+            autocomplete.bindTo('bounds', map);
+
+            var infowindow = new google.maps.InfoWindow();
+            var marker = new google.maps.Marker({
+                position: db,
+                draggable: false,
+                map: map
+            });
+
+
+
+
+            // Sets a listener on a radio button to change the filter type on Places
+            // Autocomplete.
+            function setupClickListener(id, types) {
+                var radioButton = document.getElementById(id);
+                radioButton.addEventListener('click', function () {
+                    autocomplete.setTypes(types);
+                });
+            }
+
+
+
+            setupClickListener('changetype-all', []);
+            setupClickListener('changetype-address', ['address']);
+            setupClickListener('changetype-establishment', ['establishment']);
+            setupClickListener('changetype-geocode', ['geocode']);
+
+
+
+        }
+
+
+                    </script>
+
+                    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDLov3DZ5oTZUglO6OQ_-pDvIMZ_FsIJ_8&libraries=places&callback=initMap"
+                            async defer></script>
+                </div>
+            </div>
+        </dd>
 
         <dt>
             @Html.DisplayNameFor(model => model.Latitud)
