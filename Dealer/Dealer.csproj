@@ -330,11 +330,6 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\_navbar.cshtml" />
-    <Content Include="Views\Automoviles\Create.cshtml" />
-    <Content Include="Views\Automoviles\Delete.cshtml" />
-    <Content Include="Views\Automoviles\Details.cshtml" />
-    <Content Include="Views\Automoviles\Edit.cshtml" />
-    <Content Include="Views\Automoviles\Index.cshtml" />
     <Content Include="Views\Cant_Pasajeros\Create.cshtml" />
     <Content Include="Views\Cant_Pasajeros\Delete.cshtml" />
     <Content Include="Views\Cant_Pasajeros\Details.cshtml" />
@@ -381,6 +376,11 @@
     <Content Include="Views\Admin\EditUser.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Admin\ViewAllRoles.cshtml" />
+    <Content Include="Views\Automoviles\Create.cshtml" />
+    <Content Include="Views\Automoviles\Delete.cshtml" />
+    <Content Include="Views\Automoviles\Details.cshtml" />
+    <Content Include="Views\Automoviles\Edit.cshtml" />
+    <Content Include="Views\Automoviles\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

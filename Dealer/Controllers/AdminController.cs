@@ -10,7 +10,6 @@ using Dealer.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.AspNet.Identity.EntityFramework;
-using Dealer.Models;
 using PagedList;
 
 #endregion Includes
