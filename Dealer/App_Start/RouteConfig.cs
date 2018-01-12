@@ -18,6 +18,11 @@ namespace Dealer
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
+            routes.MapRoute(
+                name: "Search",
+                url: "{controller}/{action}/{año}/{precio}/{moneda}/{pasajeros}/{marca}/{tipoauto}/{tipotrans}",
+                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+            );
         }
     }
 }

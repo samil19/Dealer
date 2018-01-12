@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -140,5 +141,33 @@ namespace Dealer.Controllers
             }
             base.Dispose(disposing);
         }
+
+          public ActionResult Search()
+          {
+              int año; float precio; string moneda; int pasajeros; string marca; string tipoauto; string tipotrans;
+             año = 2017;
+              precio = (float) 3000000.00;
+              pasajeros = 2; 
+             marca = "Bugatti";
+              tipoauto = "Coupé";
+              tipotrans = "Manual";
+              moneda = "EUR";
+
+
+                var automovils = db.Automovils.SqlQuery(@"SELECT * FROM Automovil INNER JOIN Marca ON Automovil.ID_Marca = Marca.ID_Marca INNER JOIN Cant_Pasajeros ON Automovil.ID_CantPasajeros = Cant_Pasajeros.ID_CanPasajeros INNER JOIN Tipo_Automovil ON Automovil.ID_Tipo = Tipo_Automovil.ID_Tipo INNER JOIN Tipo_Trans ON Automovil.ID_TipoTrans = Tipo_Trans.ID_TipoTrans
+WHERE Marca = @param1 AND CanPasajeros = @param2 AND Tipo = @param3 AND Tipo_Trans = @param4 
+AND Precio =@param5 AND Año_Fabricacion = @param6 AND Tipo_Moneda = @param7", 
+                  new SqlParameter("param1", marca), 
+                  new SqlParameter("param2", pasajeros),
+                  new SqlParameter("param3", tipoauto),
+                  new SqlParameter("param4", tipotrans),
+                  new SqlParameter("param5", precio),
+                  new SqlParameter("param6", año),
+                  new SqlParameter("param7", moneda)
+                  ).ToList();
+                
+            return View(automovils);
+        }
+
     }
 }

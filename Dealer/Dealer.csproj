@@ -381,6 +381,7 @@
     <Content Include="Views\Automoviles\Details.cshtml" />
     <Content Include="Views\Automoviles\Edit.cshtml" />
     <Content Include="Views\Automoviles\Index.cshtml" />
+    <Content Include="Views\Automoviles\Search.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
