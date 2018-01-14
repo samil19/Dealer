@@ -173,15 +173,14 @@ AND Precio =@param5 AND Año_Fabricacion = @param6 AND Tipo_Moneda = @param7",
             return View(automovils);
         }
 
-        public ActionResult Index2(string sortOrder, string searchString, string searchString1, string searchString2, string searchString3, string searchString4, string searchString5, string searchString6, string searchString7)
+        public ActionResult Index2(string searchString, string searchString1, string searchString2, string searchString3, string searchString4, string searchString5, string searchString6, string searchString7)
         {
             ViewBag.ID_CantPasajeros = new SelectList(db.Cant_Pasajeros, "ID_CanPasajeros", "ID_CanPasajeros");
             ViewBag.ID_Marca = new SelectList(db.Marcas, "ID_Marca", "Marca1");
             ViewBag.ID_Tipo = new SelectList(db.Tipo_Automovil, "ID_Tipo", "Tipo");
             ViewBag.ID_TipoTrans = new SelectList(db.Tipo_Trans, "ID_TipoTrans", "Tipo_Trans1");
 
-            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
-            var ModelList = new List<Automovil>();
+            
             var automovils = db.Automovils.Include(a => a.Cant_Pasajeros).Include(a => a.Marca).Include(a => a.Tipo_Automovil).Include(a => a.Tipo_Trans);
 
             decimal price = searchString6.AsDecimal();
@@ -191,7 +190,7 @@ AND Precio =@param5 AND Año_Fabricacion = @param6 AND Tipo_Moneda = @param7",
                 var model = from s in context.Automovils
                     select s;
                 //Added this area to, Search and match data, if search string is not null or empty
-                if (!String.IsNullOrEmpty(searchString))
+                if (!String.IsNullOrEmpty(searchString+ searchString1+ searchString2+ searchString3+ searchString4+ searchString+ searchString5+ searchString6+ searchString7))
                 {
                     automovils = automovils.Where(s => s.Modelo.Contains(searchString) 
                     && s.Tipo_Moneda.Contains(searchString1)

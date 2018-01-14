@@ -17,18 +17,24 @@
         @using (Html.BeginForm("Index2", "Automoviles"))
         {
             <div class="edit-field">
-                Modelo @Html.TextBox("searchString")
-                Tipo de moneda @Html.TextBox("searchString1")
-                @Html.DropDownList("ID_Marca", null, htmlAttributes: new {@class = "form-control", id = "force1", @name = "searchString2" })
+                Marca 
+                @Html.DropDownList("ID_Marca", null, "", htmlAttributes: new { @class = "form-control", id = "force1", @name = "searchString2", @data_placeholder = "whatever" })
+                Modelo 
+                @Html.TextBox("searchString")
+                Tipo de moneda 
+                @Html.TextBox("searchString1")
                 <input type="text" name="searchString2" id="primero" class="hidden">
                 <input type="text" name="searchString3" id="segundo" class="hidden">
                 <input type="text" name="searchString4" id="tercero" class="hidden">
-                @Html.DropDownList("ID_Tipo", null, htmlAttributes: new {@class = "form-control", id = "force2", @name = "searchString3" })
-                @Html.DropDownList("ID_CantPasajeros", null, htmlAttributes: new {@class = "form-control", id = "force3", @name = "searchString4" })
-                Año de Fabricacion @Html.TextBox("SearchString5")
+                @Html.DropDownList("ID_Tipo", null, "", htmlAttributes: new {@class = "form-control", id = "force2", @name = "searchString3"})
+                Tipo de Transmision
+                @Html.DropDownList("ID_TipoTrans", null, "", htmlAttributes: new { @class = "form-control", id = "force4", @name = "searchString7" })
+                Cantidad de Pasajeros
+                @Html.DropDownList("ID_CantPasajeros", null, "", htmlAttributes: new {@class = "form-control", id = "force3", @name = "searchString4"})
+                Año
+                @Html.DropDownList("SearchString5", Enumerable.Range(1940,DateTime.Now.Year - 1940 + 1).Select(i => new SelectListItem {Text = i.ToString(), Value = i.ToString()}), "Please select year", new {@class = "form-control"})
                 Precio @Html.TextBox("SearchString6")
                 <input type="text" name="searchString7" id="cuarto" class="hidden">
-                @Html.DropDownList("ID_TipoTrans", null, htmlAttributes: new {@class = "form-control", id = "force4", @name = "searchString7" })
                 
             </div>
             <script>$(document).ready(function () {
