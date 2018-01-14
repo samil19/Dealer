@@ -10,17 +10,20 @@ using Dealer;
 
 namespace Dealer.Controllers
 {
+    [Authorize(Roles = "Administrator")]
     public class SucursalesController : Controller
     {
         private DealersEntities db = new DealersEntities();
 
         // GET: Sucursales
+        [OverrideAuthorization]
         public ActionResult Index()
         {
             return View(db.Sucursals.ToList());
         }
 
         // GET: Sucursales/Details/5
+        [OverrideAuthorization]
         public ActionResult Details(int? id)
         {
             if (id == null)

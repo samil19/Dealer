@@ -10,11 +10,13 @@ using Dealer;
 
 namespace Dealer.Controllers
 {
+    [Authorize(Roles = "Administrator")]
     public class DetallesController : Controller
     {
         private DealersEntities db = new DealersEntities();
 
         // GET: Detalles
+        [OverrideAuthorization]
         public ActionResult Index()
         {
             var detalles = db.Detalles.Include(d => d.Automovil).Include(d => d.Automovil1).Include(d => d.Sucursal);
@@ -22,6 +24,7 @@ namespace Dealer.Controllers
         }
 
         // GET: Detalles/Details/5
+        [OverrideAuthorization]
         public ActionResult Details(int? id)
         {
             if (id == null)

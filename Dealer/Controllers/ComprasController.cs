@@ -7,9 +7,11 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Dealer;
+using Microsoft.AspNet.Identity;
 
 namespace Dealer.Controllers
 {
+    [Authorize(Roles = "Administrator")]
     public class ComprasController : Controller
     {
         private DealersEntities db = new DealersEntities();
@@ -22,6 +24,7 @@ namespace Dealer.Controllers
         }
 
         // GET: Compras/Details/5
+        [OverrideAuthorization]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -135,6 +138,27 @@ namespace Dealer.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+        [OverrideAuthorization]
+        [Authorize]
+        public ActionResult ListbyUser()
+        {
+            var user = User.Identity.GetUserId();
+            var compras = db.Compras.Include(c => c.AspNetUser).Include(c => c.Automovil).Include(c => c.Empleado);
+            using (var context = new DealersEntities())
+            {
+
+                var model = from s in context.Compras
+                    select s;
+
+                if (!String.IsNullOrEmpty(user))
+                {
+                    compras = compras.Where(s => s.AspNetUser.Id.Contains(user));
+
+                }
+            }
+
+            return View(compras.ToList());
         }
     }
 }

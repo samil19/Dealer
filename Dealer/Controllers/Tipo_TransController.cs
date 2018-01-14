@@ -10,6 +10,7 @@ using Dealer;
 
 namespace Dealer.Controllers
 {
+    [Authorize(Roles = "Administrator")]
     public class Tipo_TransController : Controller
     {
         private DealersEntities db = new DealersEntities();

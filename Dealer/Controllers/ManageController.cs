@@ -10,7 +10,7 @@ using Dealer.Models;
 
 namespace Dealer.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Administrator")]
     public class ManageController : Controller
     {
         private ApplicationSignInManager _signInManager;

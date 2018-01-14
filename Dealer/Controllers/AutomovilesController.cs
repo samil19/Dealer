@@ -15,11 +15,13 @@ using Microsoft.Ajax.Utilities;
 
 namespace Dealer.Controllers
 {
+    [Authorize(Roles = "Administrator")]
     public class AutomovilesController : Controller
     {
         private DealersEntities db = new DealersEntities();
 
         // GET: Automoviles
+        [OverrideAuthorization]
         public ActionResult Index()
         {
             var automovils = db.Automovils.Include(a => a.Cant_Pasajeros).Include(a => a.Marca).Include(a => a.Tipo_Automovil).Include(a => a.Tipo_Trans);
@@ -27,6 +29,7 @@ namespace Dealer.Controllers
         }
 
         // GET: Automoviles/Details/5
+        [OverrideAuthorization]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -219,7 +222,6 @@ AND Precio =@param5 AND Año_Fabricacion = @param6 AND Tipo_Moneda = @param7",
             }
 
             return View(automovils.ToList());
-        }
-
+        }        
     }
 }

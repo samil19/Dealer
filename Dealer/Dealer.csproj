@@ -383,6 +383,7 @@
     <Content Include="Views\Automoviles\Index.cshtml" />
     <Content Include="Views\Automoviles\Search.cshtml" />
     <Content Include="Views\Automoviles\Index2.cshtml" />
+    <Content Include="Views\Compras\ListbyUser.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
