@@ -119,6 +119,14 @@
           <Property Name="ID_Marca" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Marca" Type="varchar" MaxLength="25" Nullable="false" />
         </EntityType>
+        <EntityType Name="Saved">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="ID_Auto" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ID_Auto" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="Sucursal">
           <Key>
             <PropertyRef Name="ID_Sucursal" />
@@ -305,6 +313,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Saved_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="Saved" Type="Self.Saved" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Saved">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Saved_Automovil">
+          <End Role="Automovil" Type="Self.Automovil" Multiplicity="1" />
+          <End Role="Saved" Type="Self.Saved" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Automovil">
+              <PropertyRef Name="ID_Auto" />
+            </Principal>
+            <Dependent Role="Saved">
+              <PropertyRef Name="ID_Auto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="DealersModelStoreContainer">
           <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" Schema="dbo" store:Type="Tables" />
@@ -317,6 +349,7 @@
           <EntitySet Name="Detalles" EntityType="Self.Detalles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Empleados" EntityType="Self.Empleados" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Marca" EntityType="Self.Marca" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Saved" EntityType="Self.Saved" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sucursal" EntityType="Self.Sucursal" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tipo_Automovil" EntityType="Self.Tipo_Automovil" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tipo_Trans" EntityType="Self.Tipo_Trans" Schema="dbo" store:Type="Tables" />
@@ -371,6 +404,14 @@
           <AssociationSet Name="FK_Detalles_Automovil1" Association="Self.FK_Detalles_Automovil1">
             <End Role="Automovil" EntitySet="Automovil" />
             <End Role="Detalles" EntitySet="Detalles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Saved_AspNetUsers" Association="Self.FK_Saved_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Saved" EntitySet="Saved" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Saved_Automovil" Association="Self.FK_Saved_Automovil">
+            <End Role="Automovil" EntitySet="Automovil" />
+            <End Role="Saved" EntitySet="Saved" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -428,6 +469,7 @@
           <NavigationProperty Name="AspNetRoles" Relationship="Self.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
           <Property Name="Nombre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Apellido" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Automovils" Relationship="DealersModel.Saved" FromRole="AspNetUser" ToRole="Automovil" />
         </EntityType>
         <EntityType Name="Automovil">
           <Key>
@@ -449,6 +491,7 @@
           <Property Name="Tipo_Moneda" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Detalles" Relationship="DealersModel.FK_Condicion_Automovil1" FromRole="Automovil" ToRole="Detalle" />
           <NavigationProperty Name="Detalles1" Relationship="DealersModel.FK_Detalles_Automovil1" FromRole="Automovil" ToRole="Detalle" />
+          <NavigationProperty Name="AspNetUsers" Relationship="DealersModel.Saved" FromRole="Automovil" ToRole="AspNetUser" />
         </EntityType>
         <EntityType Name="Cant_Pasajeros">
           <Key>
@@ -690,6 +733,10 @@
             <End Role="Sucursal" EntitySet="Sucursals" />
             <End Role="Detalle" EntitySet="Detalles" />
           </AssociationSet>
+          <AssociationSet Name="Saved" Association="DealersModel.Saved">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="Automovil" EntitySet="Automovils" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Detalle">
           <Key>
@@ -753,6 +800,10 @@
               <PropertyRef Name="ID_Sucursal" />
             </Dependent>
           </ReferentialConstraint>
+        </Association>
+        <Association Name="Saved">
+          <End Type="DealersModel.AspNetUser" Role="AspNetUser" Multiplicity="*" />
+          <End Type="DealersModel.Automovil" Role="Automovil" Multiplicity="*" />
         </Association>
       </Schema>
     </edmx:ConceptualModels>
@@ -911,6 +962,14 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <AssociationSetMapping Name="Saved" TypeName="DealersModel.Saved" StoreEntitySet="Saved">
+            <EndProperty Name="Automovil">
+              <ScalarProperty Name="ID_Auto" ColumnName="ID_Auto" />
+            </EndProperty>
+            <EndProperty Name="AspNetUser">
+              <ScalarProperty Name="Id" ColumnName="Id" />
+            </EndProperty>
+          </AssociationSetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

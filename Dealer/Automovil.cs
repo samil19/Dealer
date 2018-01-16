@@ -20,6 +20,7 @@ namespace Dealer
             this.Compras = new HashSet<Compra>();
             this.Detalles = new HashSet<Detalle>();
             this.Detalles1 = new HashSet<Detalle>();
+            this.AspNetUsers = new HashSet<AspNetUser>();
         }
     
         public int ID_Auto { get; set; }
@@ -42,5 +43,7 @@ namespace Dealer
         public virtual ICollection<Detalle> Detalles { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Detalle> Detalles1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<AspNetUser> AspNetUsers { get; set; }
     }
 }

@@ -10,7 +10,9 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.WebPages;
 using Dealer;
+using Dealer.Models;
 using Microsoft.Ajax.Utilities;
+using Microsoft.AspNet.Identity;
 
 
 namespace Dealer.Controllers
@@ -43,6 +45,56 @@ namespace Dealer.Controllers
             }
             return View(automovil);
         }
+
+
+
+        //Testing
+        /*public ActionResult CreateViewModel()
+        {
+            ViewBag.ID_CantPasajeros = new SelectList(db.Cant_Pasajeros, "ID_CanPasajeros", "ID_CanPasajeros");
+            ViewBag.ID_Marca = new SelectList(db.Marcas, "ID_Marca", "Marca1");
+            ViewBag.ID_Tipo = new SelectList(db.Tipo_Automovil, "ID_Tipo", "Tipo");
+            ViewBag.ID_TipoTrans = new SelectList(db.Tipo_Trans, "ID_TipoTrans", "Tipo_Trans1");
+            ViewBag.ID_Sucursal = new SelectList(db.Automovils, "ID_Auto", "Modelo");
+            ViewBag.ID_Auto = new SelectList(db.Automovils, "ID_Auto", "Modelo");
+            ViewBag.ID_Sucursal = new SelectList(db.Sucursals, "ID_Sucursal", "Nombre");
+            return View();
+        }
+
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateViewModel([Bind(Include = "ID_Auto,ID_Marca,Modelo,Año_Fabricacion,ID_Tipo,ID_CantPasajeros,ID_TipoTrans,Precio,Tipo_MonedaID_Condicion,ID_Auto,Condicion,Cantidad,ID_Sucursal,Detalles")] Automovil automovil, Detalle detalle)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Automovils.Add(automovil);
+                detalle.ID_Auto = automovil.ID_Auto;
+                db.Detalles.Add(detalle);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+            ViewBag.ID_CantPasajeros = new SelectList(db.Cant_Pasajeros, "ID_CanPasajeros", "ID_CanPasajeros", automovil.ID_CantPasajeros);
+            ViewBag.ID_Marca = new SelectList(db.Marcas, "ID_Marca", "Marca1", automovil.ID_Marca);
+            ViewBag.ID_Tipo = new SelectList(db.Tipo_Automovil, "ID_Tipo", "Tipo", automovil.ID_Tipo);
+            ViewBag.ID_TipoTrans = new SelectList(db.Tipo_Trans, "ID_TipoTrans", "Tipo_Trans1", automovil.ID_TipoTrans);
+            ViewBag.ID_Sucursal = new SelectList(db.Automovils, "ID_Auto", "Modelo", detalle.ID_Sucursal);
+            ViewBag.ID_Auto = new SelectList(db.Automovils, "ID_Auto", "Modelo", detalle.ID_Auto);
+            ViewBag.ID_Sucursal = new SelectList(db.Sucursals, "ID_Sucursal", "Nombre", detalle.ID_Sucursal);
+
+            return View();
+        }*/
+
+
+
+
+        //Testing
+
+
+
+
 
         // GET: Automoviles/Create
         public ActionResult Create()
@@ -175,7 +227,7 @@ AND Precio =@param5 AND Año_Fabricacion = @param6 AND Tipo_Moneda = @param7",
                 
             return View(automovils);
         }
-
+        [OverrideAuthorization]
         public ActionResult Index2(string searchString, string searchString1, string searchString2, string searchString3, string searchString4, string searchString5, string searchString6, string searchString7)
         {
             ViewBag.ID_CantPasajeros = new SelectList(db.Cant_Pasajeros, "ID_CanPasajeros", "ID_CanPasajeros");
@@ -222,6 +274,36 @@ AND Precio =@param5 AND Año_Fabricacion = @param6 AND Tipo_Moneda = @param7",
             }
 
             return View(automovils.ToList());
-        }        
+        }
+        [OverrideAuthorization]
+        public void Agregar(int? ID)
+        {
+            using (var context = new DealersEntities())
+            {
+                context.Database.ExecuteSqlCommand("INSERT INTO Saved VALUES (@param1,@param2)", new SqlParameter("param1",(User.Identity.GetUserId())), new SqlParameter("param2", ID) );
+                context.SaveChanges(); 
+            }
+
+            ViewBag.Message = "Agregado a tu historial";
+        }
+
+        public void importar()
+        {
+            using (var context = new DealersEntities())
+            {
+                var seleccion = context.Database.ExecuteSqlCommand("SELECT ID_Auto FROM Saved WHERE Id=@param1", new SqlParameter("param1", (User.Identity.GetUserId())));
+                context.SaveChanges();
+            }
+        }
+
+        public void Verificar()
+        {
+            using (var context = new DealersEntities())
+            {
+                var seleccion = context.Database.ExecuteSqlCommand("SELECT ID_Auto FROM Saved WHERE Id=@param1", new SqlParameter("param1", (User.Identity.GetUserId())));
+                context.SaveChanges();
+            }
+        }
+
     }
 }

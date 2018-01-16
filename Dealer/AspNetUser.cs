@@ -21,6 +21,7 @@ namespace Dealer
             this.AspNetUserLogins = new HashSet<AspNetUserLogin>();
             this.Compras = new HashSet<Compra>();
             this.AspNetRoles = new HashSet<AspNetRole>();
+            this.Automovils = new HashSet<Automovil>();
         }
     
         public string Id { get; set; }
@@ -46,5 +47,7 @@ namespace Dealer
         public virtual ICollection<Compra> Compras { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AspNetRole> AspNetRoles { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Automovil> Automovils { get; set; }
     }
 }

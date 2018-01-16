@@ -31,6 +31,7 @@
         <AssociationConnector Association="DealersModel.FK_Detalles_Automovil1" />
         <EntityTypeShape EntityType="DealersModel.Sucursal" Width="1.5" PointX="7.375" PointY="1" />
         <AssociationConnector Association="DealersModel.FK_Condicion_Sucursal" />
+        <AssociationConnector Association="DealersModel.Saved" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
