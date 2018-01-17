@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using System.Data.SqlClient;
 using System.Globalization;
 using System.Linq;
@@ -201,7 +202,7 @@ namespace Dealer.Controllers
             base.Dispose(disposing);
         }
 
-          public ActionResult Search()
+          /*public ActionResult Search()
           {
               int año; float precio; string moneda; int pasajeros; string marca; string tipoauto; string tipotrans;
              año = 2017;
@@ -226,7 +227,7 @@ AND Precio =@param5 AND Año_Fabricacion = @param6 AND Tipo_Moneda = @param7",
                   ).ToList();
                 
             return View(automovils);
-        }
+        }*/
         [OverrideAuthorization]
         public ActionResult Index2(string searchString, string searchString1, string searchString2, string searchString3, string searchString4, string searchString5, string searchString6, string searchString7)
         {
@@ -256,26 +257,13 @@ AND Precio =@param5 AND Año_Fabricacion = @param6 AND Tipo_Moneda = @param7",
                     && s.Precio >=(price)
                     && s.Tipo_Trans.Tipo_Trans1.Contains(searchString7)
                                                        );
-                    //model = model.Where(s => s.Modelo.Contains(searchString));
-                    // || s.Cant_Pasajeros.Contains(searchString)
-                    //|| s.Tipo_Automovil.Contains(searchString));
                 }
-                /*switch (sortOrder)
-                {
-                    case "name_desc":
-                        ModelList = model.OrderByDescending(s => s.Marca).ToList();
-                        break;
-
-                    default:
-                        ModelList = model.OrderBy(automovils => automovils.Marca).ToList();
-                        break;
-                }
-                */
             }
 
             return View(automovils.ToList());
         }
         [OverrideAuthorization]
+        [Authorize]
         public void Agregar(int? ID)
         {
             using (var context = new DealersEntities())
@@ -286,24 +274,21 @@ AND Precio =@param5 AND Año_Fabricacion = @param6 AND Tipo_Moneda = @param7",
 
             ViewBag.Message = "Agregado a tu historial";
         }
-
-        public void importar()
+        /*[OverrideAuthorization]
+        [Authorize]
+        public ActionResult SavedIndex()
         {
+          List<Automovil> automovils = new List<Automovil>();
+
             using (var context = new DealersEntities())
             {
-                var seleccion = context.Database.ExecuteSqlCommand("SELECT ID_Auto FROM Saved WHERE Id=@param1", new SqlParameter("param1", (User.Identity.GetUserId())));
-                context.SaveChanges();
-            }
-        }
+                //automovils = db.Automovils.SqlQuery("SELECT Automovil.ID_Auto, Automovil.ID_Marca, Automovil.Modelo, Automovil.Año_Fabricacion, Automovil.ID_Tipo, Automovil.ID_CantPasajeros, Automovil.ID_TipoTrans, Automovil.Precio, Automovil.Tipo_Moneda FROM Automovil INNER JOIN Saved ON Automovil.ID_Auto = Saved.ID_Auto WHERE Saved.Id = '@param'", new SqlParameter("param", User.Identity.GetUserId())).ToList<Automovil>();
+                automovils = db.Automovils.SqlQuery(@"SELECT * FROM Automovil INNER JOIN Saved ON Automovil.ID_Auto = Saved.ID_Auto WHERE Saved.Id = @param", new SqlParameter("param", (User.Identity.GetUserId()))).ToList();
 
-        public void Verificar()
-        {
-            using (var context = new DealersEntities())
-            {
-                var seleccion = context.Database.ExecuteSqlCommand("SELECT ID_Auto FROM Saved WHERE Id=@param1", new SqlParameter("param1", (User.Identity.GetUserId())));
-                context.SaveChanges();
-            }
-        }
 
+                return View(automovils);
+            }
+        }*/
+        
     }
 }

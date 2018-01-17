@@ -239,6 +239,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MarcasController.cs" />
+    <Compile Include="Controllers\SavedController.cs" />
     <Compile Include="Controllers\SucursalesController.cs" />
     <Compile Include="Controllers\Tipo_AutomovilesController.cs" />
     <Compile Include="Controllers\Tipo_TransController.cs" />
@@ -419,6 +420,8 @@
     <Content Include="Views\Compras\ListbyUser.cshtml" />
     <Content Include="Views\ViewModel\Create.cshtml" />
     <Content Include="Views\Automoviles\CreateViewModel.cshtml" />
+    <Content Include="Views\Saved\Index.cshtml" />
+    <Content Include="Views\Automoviles\SavedIndex.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
