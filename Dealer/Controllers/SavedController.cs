@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
+using System.Web.Helpers;
 using System.Web.Mvc;
 using Dealer.Models;
+using Microsoft.Ajax.Utilities;
 using Microsoft.AspNet.Identity;
 
 namespace Dealer.Controllers
@@ -31,13 +34,17 @@ namespace Dealer.Controllers
             db.Database.ExecuteSqlCommand("DELETE FROM Saved WHERE ID_Auto = @param", new SqlParameter("param", id));
             return RedirectToAction("Index");
         }
-        public void Verificar()
+        public JsonResult Verificar()
         {
+            List<int> seleccion;
             using (var context = new DealersEntities())
             {
-                var seleccion = context.Database.ExecuteSqlCommand("SELECT ID_Auto FROM Saved WHERE Id=@param1", new SqlParameter("param1", (User.Identity.GetUserId())));
-                context.SaveChanges();
+                string id = User.Identity.GetUserId();
+                seleccion = context.Database.SqlQuery<int>("SELECT ID_Auto FROM Saved WHERE Id=@param1",new SqlParameter("param1", id)).ToList();
+                // (@"SELECT ID_Auto FROM Saved WHERE Id= @param1", new SqlParameter("param1", (User.Identity.GetUserId()))).ToListAsync();
             }
+
+            return Json(seleccion, JsonRequestBehavior.AllowGet);
         }
     }
 }
