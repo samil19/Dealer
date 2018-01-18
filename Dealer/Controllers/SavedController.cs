@@ -28,12 +28,13 @@ namespace Dealer.Controllers
 
                 return View(automovils);
         }
-
+        [Authorize]
         public RedirectToRouteResult Delete(int? id)
         {
             db.Database.ExecuteSqlCommand("DELETE FROM Saved WHERE ID_Auto = @param", new SqlParameter("param", id));
             return RedirectToAction("Index");
         }
+        [Authorize]
         public JsonResult Verificar()
         {
             List<int> seleccion;

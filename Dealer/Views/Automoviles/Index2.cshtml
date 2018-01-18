@@ -1,4 +1,5 @@
-﻿@model IEnumerable<Dealer.Automovil>
+﻿@using Microsoft.AspNet.Identity
+@model IEnumerable<Dealer.Automovil>
 
 @{
     ViewBag.Title = "Index2";
@@ -10,7 +11,58 @@
 <script src="@Url.Content("https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js")" type="text/javascript"></script>
 <script src="@Url.Content("https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js")" type="text/javascript"></script>
 <h2>Index2</h2>
+<script>
+                $(document).ready(function() {
+                    Verificar();
+                    $("#mandar").click(function() {
+                        aplicar();
+                    });
+                    $(".call").click(function () {
+                        if ('@User.Identity.GetUserId()' != '') {
+                            $.ajax({
+                                url: '@Url.Action("Agregar", "Automoviles")',
+                                data: { ID: this.id }
+                            });
+                            document.getElementById(this.id).disabled = true;
+                            $("#" + this.id).text("Agregado a tus Guardados");
+                        } else {
+                            alert("Debes iniciar sesion!");
+                        }
+                    });
+                });
+                function aplicar() {
+                    var h = $('#force1 option:selected').text();
+                    var r = $('#force2 option:selected').text();
+                    var q = $('#force3 option:selected').text();
+                    var z = $('#force4 option:selected').text();
 
+                    $('#primero').val(h);
+                    $('#segundo').val(r);
+                    $('#tercero').val(q);
+                    $('#cuarto').val(z);
+
+                }
+                function Verificar() {
+                    $.ajax({
+                        type: 'get',
+                        dataType: "Json",
+                        url: '@Url.Action("Verificar", "Saved")',
+                        success: function(data) {
+                            data.forEach(function(element)
+                            {
+                                console.log("IDs= " + " " + element);
+                                bloquear(element);
+                            });
+                            console.log("Length= " + data.length);
+                }
+                    });
+                    function bloquear(id) {
+                        //document.getElementById(id).disabled = true;
+                        $("#" + id).attr("disabled", "true");
+                        $("#" + id).text("Agregado a tus Guardados");
+                    }
+                }
+</script>
 
 @using (Html.BeginForm())
 {
@@ -18,81 +70,46 @@
         @using (Html.BeginForm("Index2", "Automoviles"))
         {
             <div class="edit-field">
-                Marca 
-                @Html.DropDownList("ID_Marca", null, "", htmlAttributes: new { @class = "form-control", id = "force1", @name = "searchString2", @data_placeholder = "whatever" })
-                Modelo 
-                @Html.TextBox("searchString")
-                Tipo de moneda 
-                @Html.TextBox("searchString1")
+            <div class="col-md-3">
+                    Marca
+                    @Html.DropDownList("ID_Marca", null, "", htmlAttributes: new {@class = "form-control", id = "force1", @data_placeholder = "whatever"})
                 <input type="text" name="searchString2" id="primero" class="hidden">
-                <input type="text" name="searchString3" id="segundo" class="hidden">
-                <input type="text" name="searchString4" id="tercero" class="hidden">
-                @Html.DropDownList("ID_Tipo", null, "", htmlAttributes: new {@class = "form-control", id = "force2", @name = "searchString3"})
-                Tipo de Transmision
-                @Html.DropDownList("ID_TipoTrans", null, "", htmlAttributes: new { @class = "form-control", id = "force4", @name = "searchString7" })
-                Cantidad de Pasajeros
-                @Html.DropDownList("ID_CantPasajeros", null, "", htmlAttributes: new {@class = "form-control", id = "force3", @name = "searchString4"})
-                Año
-                @Html.DropDownList("SearchString5", Enumerable.Range(1940,DateTime.Now.Year - 1940 + 1).Select(i => new SelectListItem {Text = i.ToString(), Value = i.ToString()}), "Please select year", new {@class = "form-control"})
-                Precio @Html.TextBox("SearchString6")
-                <input type="text" name="searchString7" id="cuarto" class="hidden">
-                
+                    </div>
+           <div class="col-md-3">
+                Modelo
+                @Html.TextBox("searchString", null, new { @class="form-control"})
             </div>
-            <script>$(document).ready(function () {
-                    Verificar();
-                    $("#mandar").click(function() {
-                        var h = $('#force1 option:selected').text();
-                        var r = $('#force2 option:selected').text();
-                        var q = $('#force3 option:selected').text();
-                        var z = $('#force4 option:selected').text();
-
-                        $('#primero').val(h);
-                        $('#segundo').val(r);
-                        $('#tercero').val(q);
-                        $('#cuarto').val(z);
-                    });
-                    $(".call").click(function () {
-                        $.ajax({
-                            url: '@Url.Action("Agregar", "Automoviles")',
-                            data: { ID: this.id },
-                            error: function (request, error) {
-                                console.log(arguments);
-                                alert(" Can't do because: " + error);
-                            },
-                            sucess: function () {
-                                alert("Value Added");  // or any other indication if you want to show
-                            }
-                        });
-                        document.getElementById(this.id).disabled = true;
-
-                    });
-});
-                function Verificar() {
-                    $.ajax({
-                        type: 'get',
-                        dataType: "Json",
-                        url: '@Url.Action("Verificar", "Saved")',
-                        error: function(request, error) {
-                            alert(" Can't do because: " + error);
-                            console.log(arguments);
-
-                        },
-                        success: function(data) {
-                            data.forEach(function(element)
-                            {
-                                //console.log("Articulos" + " " + element);
-                                bloquear(element);
-                            });
-                }
-                    });
-                    function bloquear(id) {
-                        document.getElementById(id).disabled = true;
-                        $("#" + id).text("Agregado a tus Guardados");
-                    }
-                }
-            </script>
+                <div class="col-md-3">
+                    Tipo de Automovil
+                    @Html.DropDownList("ID_Tipo", null, "", htmlAttributes: new {@class = "form-control", id = "force2", @name = "searchString3"})
+                    <input type="text" name="searchString3" id="segundo" class="hidden">
+                        
+                </div>
+                <div class="col-md-3">
+                    Tipo de Transmision
+                    @Html.DropDownList("ID_TipoTrans", null, "", htmlAttributes: new { @class = "form-control", id = "force4", @name = "searchString7" })
+                    
+                    <input type="text" name="searchString7" id="cuarto" class="hidden">
+                </div>
+                <div class="col-md-3">
+                    Tipo de moneda
+                    @Html.TextBox("searchString1", null, new { @class = "form-control" })
+                </div>
+           <div class="col-md-3">
+                                    Cantidad de Pasajeros
+                                    @Html.DropDownList("ID_CantPasajeros", null, "", htmlAttributes: new { @class = "form-control", id = "force3", @name = "searchString4" })
+               <input type="text" name="searchString4" id="tercero" class="hidden">
+               </div>
+           <div class="col-md-3">
+                                        Año
+                                        @Html.DropDownList("SearchString5", Enumerable.Range(1940, DateTime.Now.Year - 1940 + 1).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }), "Please select year", new { @class = "form-control" })
+                                        </div>
+           <div class="col-md-3">
+                                            Precio @Html.TextBox("SearchString6", null, new { @class = "form-control" })
+                                        </div>
+            </div>
             <div class="col-md-10">
-            <button type="submit" value="Search" id="mandar">Buscar</button>
+            <button type="submit" value="Search" id="mandar" class="btn btn-primary">Buscar</button>
             </div>
         }
         
