@@ -230,7 +230,6 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\API\AutomovilesController.cs" />
-    <Compile Include="Controllers\API\SucursalesController.cs" />
     <Compile Include="Controllers\AutomovilesController.cs" />
     <Compile Include="Controllers\Cant_PasajerosController.cs" />
     <Compile Include="Controllers\ComprasController.cs" />
