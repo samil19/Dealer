@@ -288,6 +288,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\bootstrap-LUX.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\PagedList.css" />
@@ -421,6 +422,7 @@
     <Content Include="Views\Automoviles\CreateViewModel.cshtml" />
     <Content Include="Views\Saved\Index.cshtml" />
     <Content Include="Views\Automoviles\SavedIndex.cshtml" />
+    <Content Include="Views\Automoviles\AutoDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

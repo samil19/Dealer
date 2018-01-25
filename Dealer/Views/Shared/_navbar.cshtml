@@ -7,44 +7,73 @@
             $(".admin").removeAttr("hidden");
         }
     });
+    var h = 0;
+    function add() {
+        if (h == 0) {
+            $(".mi").addClass("show");
+            h++;
+        }
+        else {
+            $(".mi").removeClass("show");
+            h--;
+        }
+    }
 </script>
 
-<div class="navbar navbar-inverse navbar-fixed-top">
-    <div class="container">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            @Html.ActionLink("Dealer Jimenez", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-        </div>
-        <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-                <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                <li>@Html.ActionLink("About", "About", "Home")</li>
-                <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                <li>
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="true">Dropdown <span class="caret"></span></a>
-                    <ul class="dropdown-menu" role="menu">
-                        <li>@Html.ActionLink("Automoviles", "Index2", "Automoviles")</li>
-                        <li class="admin" hidden>@Html.ActionLink("Automoviles", "Index", "Automoviles")</li>
-                        <li class="admin" hidden>@Html.ActionLink("Cantidad de Pasajeros", "Index", "Cant_Pasajeros")</li>
-                        <li>@Html.ActionLink("Guardados", "Index", "Saved")</li>
-                        <li>@Html.ActionLink("Compras", "Index", "Compras")</li>
-                        <li>@Html.ActionLink("Detalles", "Index", "Detalles")</li>
-                        <li class="admin" hidden>@Html.ActionLink("Empleados", "Index", "Empleados")</li>
-                        <li class="admin" hidden>@Html.ActionLink("Marcas", "Index", "Marcas")</li>
-                        <li>@Html.ActionLink("Sucursales", "Index", "Sucursales")</li>
-                        <li class="admin" hidden>@Html.ActionLink("Tipo de Automoviles", "Index", "Tipo_Automoviles")</li>
-                        <li class="admin" hidden>@Html.ActionLink("Tipo de Transmision", "Index", "Tipo_Trans")</li>
-                        <li class="admin" hidden>@Html.ActionLink("Roles", "Index", "Admin")</li>
-                    </ul>
-                </li>
-            </ul>
+
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light navbar-fixed-top">
+    <a class="navbar-brand" href="/Home/Index">Dealer</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation" style="">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarColor01">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a>@Html.ActionLink("Home", "Index", "Home") <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a>@Html.ActionLink("Automoviles", "Index2", "Automoviles")</a>
+            </li>
+            <li class="nav-item">
+                <a>@Html.ActionLink("Guardados", "Index", "Saved")</a>
+
+            </li>
+            <li class="nav-item">
+                <a>@Html.ActionLink("Compras", "Index", "Compras")</a>
+
+            </li>
+            <li class="nav-item">
+                <a>@Html.ActionLink("Detalles", "Index", "Detalles")</a>
+
+            </li>
             
+            <li class="nav-item">
+                <a>@Html.ActionLink("Sucursales", "Index", "Sucursales")</a>
+
+            </li>
+            
+            
+            <li class="nav-item dropdown mi">
+                <a class="nav-link dropdown-toggle admin" hidden data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="true" onclick="add()">Administrador</a>
+                <div class="dropdown-menu mi" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 39px, 0px); top: 0px; left: 0px; will-change: transform;">
+                    <a class="admin dropdown-item" hidden>@Html.ActionLink("Administrador de Automoviles", "Index", "Automoviles")</a>
+                    <a class="admin dropdown-item" hidden>@Html.ActionLink("Cantidad de Pasajeros", "Index", "Cant_Pasajeros")</a>
+                    <a class="admin dropdown-item" hidden>@Html.ActionLink("Empleados", "Index", "Empleados")</a>
+                    <a class="admin dropdown-item" hidden>@Html.ActionLink("Marcas", "Index", "Marcas")</a>
+                    <a class="admin dropdown-item" hidden>@Html.ActionLink("Tipo de Automoviles", "Index", "Tipo_Automoviles")</a>
+                    <a class="admin dropdown-item" hidden>@Html.ActionLink("Tipo de Transmision", "Index", "Tipo_Trans")</a>
+                    <a class="admin dropdown-item" hidden>@Html.ActionLink("Roles", "Index", "Admin")</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#">Separated link</a>
+                </div>
+            </li>
+        </ul>
+                    <form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" placeholder="Search" type="text">
+                <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+            </form>
             @Html.Partial("_LoginPartial")
         </div>
-    </div>
-</div>
-
+</nav>

@@ -1,0 +1,132 @@
+﻿@model Dealer.Models.AutomovilViewModel
+
+@{
+    ViewBag.Title = "AutoDetails";
+}
+
+<h2>AutoDetails</h2>
+
+<div>
+    <h4>Automovil</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Automovil.Modelo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Automovil.Modelo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Automovil.Año_Fabricacion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Automovil.Año_Fabricacion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Automovil.Precio)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Automovil.Precio)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Automovil.Tipo_Moneda)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Automovil.Tipo_Moneda)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Automovil.Cant_Pasajeros.ID_CanPasajeros)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Automovil.Cant_Pasajeros.ID_CanPasajeros)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Automovil.Marca.Marca1)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Automovil.Marca.Marca1)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Automovil.Tipo_Automovil.Tipo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Automovil.Tipo_Automovil.Tipo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Automovil.Tipo_Trans.Tipo_Trans1)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Automovil.Tipo_Trans.Tipo_Trans1)
+        </dd>
+       holaaa
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Detalle.Condicion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Detalle.Condicion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Detalle.Cantidad)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Detalle.Cantidad)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Detalle.Detalles)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Detalle.Detalles)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Detalle.Automovil.Modelo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Detalle.Automovil.Modelo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Detalle.Automovil1.Modelo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Detalle.Automovil1.Modelo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Detalle.Sucursal.Nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Detalle.Sucursal.Nombre)
+        </dd>
+
+
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Back to List", "Index")
+</p>

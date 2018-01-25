@@ -1,19 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
 using System.Data.SqlClient;
-using System.Globalization;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using System.Web.WebPages;
-using Dealer;
 using Dealer.Models;
-using Microsoft.Ajax.Utilities;
 using Microsoft.AspNet.Identity;
+using PagedList;
 
 
 namespace Dealer.Controllers
@@ -22,6 +17,7 @@ namespace Dealer.Controllers
     public class AutomovilesController : Controller
     {
         private DealersEntities db = new DealersEntities();
+        private DealersEntities db1 = new DealersEntities();
 
         // GET: Automoviles
         [OverrideAuthorization]
@@ -45,6 +41,46 @@ namespace Dealer.Controllers
                 return HttpNotFound();
             }
             return View(automovil);
+        }
+
+        [OverrideAuthorization]
+        public ActionResult AutoDetails(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            //
+
+            var detalles = db1.Detalles.Include(d => d.Automovil).Include(d => d.Automovil1).Include(d => d.Sucursal);
+
+            //Detalle details = new Detalle();
+
+            
+
+            var model = from s in db1.Detalles
+                        select s;
+
+            detalles = detalles.Where(s => (s.ID_Auto.ToString()).Contains(id.ToString()));
+
+            //details = detalles.FirstOrDefault();
+
+            Automovil automovil = db.Automovils.Find(id);
+
+            var mixto = new AutomovilViewModel
+            {
+                Automovil = automovil,
+                Detalle = (Detalle)detalles.FirstOrDefault()
+            };
+        //
+    
+            
+            if (automovil == null)
+            {
+                return HttpNotFound();
+            }
+            return View(mixto);
         }
 
 
@@ -110,7 +146,7 @@ namespace Dealer.Controllers
         // POST: Automoviles/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
+        /*[HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ID_Auto,ID_Marca,Modelo,Año_Fabricacion,ID_Tipo,ID_CantPasajeros,ID_TipoTrans,Precio,Tipo_Moneda")] Automovil automovil)
         {
@@ -126,7 +162,34 @@ namespace Dealer.Controllers
             ViewBag.ID_Tipo = new SelectList(db.Tipo_Automovil, "ID_Tipo", "Tipo", automovil.ID_Tipo);
             ViewBag.ID_TipoTrans = new SelectList(db.Tipo_Trans, "ID_TipoTrans", "Tipo_Trans1", automovil.ID_TipoTrans);
             return View(automovil);
+        }*/
+
+        //
+
+        // POST: Automoviles/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create([Bind(Include = "ID_Auto,ID_Marca,Modelo,Año_Fabricacion,ID_Tipo,ID_CantPasajeros,ID_TipoTrans,Precio,Tipo_Moneda")] Automovil automovil)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Automovils.Add(automovil);
+                db.SaveChanges();
+                return Redirect("/Detalles/Create");
+            }
+
+            ViewBag.ID_CantPasajeros = new SelectList(db.Cant_Pasajeros, "ID_CanPasajeros", "ID_CanPasajeros", automovil.ID_CantPasajeros);
+            ViewBag.ID_Marca = new SelectList(db.Marcas, "ID_Marca", "Marca1", automovil.ID_Marca);
+            ViewBag.ID_Tipo = new SelectList(db.Tipo_Automovil, "ID_Tipo", "Tipo", automovil.ID_Tipo);
+            ViewBag.ID_TipoTrans = new SelectList(db.Tipo_Trans, "ID_TipoTrans", "Tipo_Trans1", automovil.ID_TipoTrans);
+            return View(automovil);
         }
+
+
+            //
+
 
         // GET: Automoviles/Edit/5
         public ActionResult Edit(int? id)
@@ -229,14 +292,47 @@ AND Precio =@param5 AND Año_Fabricacion = @param6 AND Tipo_Moneda = @param7",
             return View(automovils);
         }*/
         [OverrideAuthorization]
-        public ActionResult Index2(string searchString, string searchString1, string searchString2, string searchString3, string searchString4, string searchString5, string searchString6, string searchString7)
+        public ActionResult Index2(int? page, string currentFilter3, string currentFilter4, string currentFilter5, string currentFilter6, string currentFilter7,string currentFilter, string currentFilter2, string searchString, string searchString1, string searchString2, string searchString3, string searchString4, string searchString5, string searchString6, string searchString7)
         {
             ViewBag.ID_CantPasajeros = new SelectList(db.Cant_Pasajeros, "ID_CanPasajeros", "ID_CanPasajeros");
             ViewBag.ID_Marca = new SelectList(db.Marcas, "ID_Marca", "Marca1");
             ViewBag.ID_Tipo = new SelectList(db.Tipo_Automovil, "ID_Tipo", "Tipo");
             ViewBag.ID_TipoTrans = new SelectList(db.Tipo_Trans, "ID_TipoTrans", "Tipo_Trans1");
 
-            
+            //searchString=(searchString == null) ? searchString="" : "";
+            //searchString1 = (searchString1 == null) ? searchString1 = "" : "";
+            //searchString2 = (searchString2 == null) ? searchString2 = "" : "";
+            //searchString3 = (searchString3 == null) ? searchString3 = "" : "";
+            //searchString4 = (searchString4 == null) ? searchString4 = "" : "";
+            //searchString5 = (searchString5 == null) ? searchString5 = "" : "";
+            //searchString6 = (searchString6 == null) ? searchString6 = "" : "";
+            //searchString7 = (searchString7 == null) ? searchString7 = "" : "";
+
+
+
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+                searchString2 = currentFilter2;
+                searchString3 = currentFilter3;
+                searchString4 = currentFilter4;
+                searchString5 = currentFilter5;
+                searchString6 = currentFilter6;
+                searchString7 = currentFilter7;
+            }
+
+            ViewBag.CurrentFilter = searchString;
+            ViewBag.CurrentFilter2 = searchString2;
+            ViewBag.CurrentFilter3 = searchString3;
+            ViewBag.CurrentFilter4 = searchString4;
+            ViewBag.CurrentFilter5 = searchString5;
+            ViewBag.CurrentFilter6 = searchString6;
+            ViewBag.CurrentFilter7 = searchString7;
+
             var automovils = db.Automovils.Include(a => a.Cant_Pasajeros).Include(a => a.Marca).Include(a => a.Tipo_Automovil).Include(a => a.Tipo_Trans);
 
             decimal price = searchString6.AsDecimal();
@@ -259,8 +355,17 @@ AND Precio =@param5 AND Año_Fabricacion = @param6 AND Tipo_Moneda = @param7",
                                                        );
                 }
             }
-
-            return View(automovils.ToList());
+            int pageSize = 10;
+            if (!String.IsNullOrEmpty(searchString + searchString1 + searchString2 + searchString3 + searchString4 + searchString + searchString5 + searchString6 + searchString7))
+            {
+                pageSize = automovils.ToList().Count;
+                if(automovils.ToList().Count == 0)
+                {
+                    pageSize = 25;
+                }
+            }
+            int pageNumber = (page ?? 1);
+            return View((automovils.ToList()).ToPagedList(pageNumber, pageSize));
         }
         [OverrideAuthorization]
         [Authorize]
