@@ -31,7 +31,14 @@
                             alert("Debes iniciar sesion!");
                         }
                     });
+
+                    $(".call1").click(function () {
+                        window.location = $(this).data("href");
+                    });
                 });
+
+    
+
                 function aplicar() {
                     var h = $('#force1 option:selected').text();
                     var r = $('#force2 option:selected').text();
@@ -72,11 +79,11 @@
     <p>
         @using (Html.BeginForm("Index2", "Automoviles"))
         {
-            <div class="edit-field">
+            <div class="form-inline">
             <div class="col-md-3">
                     Marca
                     @Html.DropDownList("ID_Marca", null, "", htmlAttributes: new {@class = "form-control", id = "force1", @data_placeholder = "whatever"})
-                <input type="text" name="searchString2" id="primero" class="hidden" @ViewBag.CurrentFilter2 as string>
+                <input type="text" name="searchString2" id="primero" hidden @ViewBag.CurrentFilter2 as string>
                     </div>
            <div class="col-md-3">
                 Modelo
@@ -85,14 +92,14 @@
                 <div class="col-md-3">
                     Tipo de Automovil
                     @Html.DropDownList("ID_Tipo", null, "", htmlAttributes: new {@class = "form-control", id = "force2", @name = "searchString3"})
-                    <input type="text" name="searchString3" id="segundo" class="hidden" @ViewBag.CurrentFilter3 as string>
+                    <input type="text" name="searchString3" id="segundo" hidden @ViewBag.CurrentFilter3 as string>
                         
                 </div>
                 <div class="col-md-3">
                     Tipo de Transmision
                     @Html.DropDownList("ID_TipoTrans", null, "", htmlAttributes: new { @class = "form-control", id = "force4", @name = "searchString7" })
                     
-                    <input type="text" name="searchString7" id="cuarto" class="hidden" @ViewBag.CurrentFilter7 as string>
+                    <input type="text" name="searchString7" id="cuarto" hidden @ViewBag.CurrentFilter7 as string>
                 </div>
                 <div class="col-md-3">
                     Tipo de moneda
@@ -101,19 +108,19 @@
            <div class="col-md-3">
                                     Cantidad de Pasajeros
                                     @Html.DropDownList("ID_CantPasajeros", null, "", htmlAttributes: new { @class = "form-control", id = "force3", @name = "searchString4" })
-               <input type="text" name="searchString4" id="tercero" class="hidden" @ViewBag.CurrentFilter4 as string>
+               <input type="text" name="searchString4" id="tercero" hidden @ViewBag.CurrentFilter4 as string>
                </div>
            <div class="col-md-3">
                                         Año
                                         @Html.DropDownList("SearchString5", Enumerable.Range(1940, DateTime.Now.Year - 1940 + 1).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }) , "Please select year", new { @class = "form-control", @id = "force5"})
-               <input type="text" id="quinto" class="hidden" @ViewBag.CurrentFilter5 as string>
+               <input type="text" id="quinto" hidden @ViewBag.CurrentFilter5 as string>
            </div>
            <div class="col-md-3">
                                             Precio @Html.TextBox("SearchString6", ViewBag.CurrentFilter6 as string, new { @class = "form-control" })
                                         </div>
             </div>
             <div class="col-md-10">
-            <button type="submit" value="Search" id="mandar" class="btn btn-primary">Buscar</button>
+            <button type="submit" value="Search" id="mandar" class="btn btn-primary" style="margin:10px;">Buscar</button>
             </div>
         }
         
@@ -128,36 +135,39 @@
 
         @foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Modelo)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Año_Fabricacion)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Precio)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Tipo_Moneda)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Cant_Pasajeros.ID_CanPasajeros)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Marca.Marca1)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Tipo_Automovil.Tipo)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Tipo_Trans.Tipo_Trans1)
-                </td>
-                <td>
-                    @Html.ActionLink("Details", "AutoDetails", new { id = item.ID_Auto })
-                    <button class="btn btn-primary call" id="@item.ID_Auto">Agregar a Guardados</button>
-                </td>
-            </tr>
+            
+            <tr data-href='AutoDetails/@item.ID_Auto'>
+                <div class='call1' style="cursor: pointer;">
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Modelo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Año_Fabricacion)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Precio)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Tipo_Moneda)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Cant_Pasajeros.ID_CanPasajeros)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Marca.Marca1)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Tipo_Automovil.Tipo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Tipo_Trans.Tipo_Trans1)
+                    </td>
+                </div>
+                    <td>
+                        <button class="btn btn-primary call" id="@item.ID_Auto" style="z-index:1;">Agregar a Guardados</button>
+                    </td>
+</tr>
+               
         }
 
     </table>
