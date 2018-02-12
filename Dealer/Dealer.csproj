@@ -291,6 +291,10 @@
     <Content Include="Content\bootstrap-LUX.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\CosyVehicleImage.jpg.png" />
+    <Content Include="Content\CosyVehicleImage.png" />
+    <Content Include="Content\CosyVehicleImage1.jpg" />
+    <Content Include="Content\materialize.css" />
     <Content Include="Content\PagedList.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />

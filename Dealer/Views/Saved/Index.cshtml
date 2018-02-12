@@ -1,10 +1,10 @@
 ﻿@model IEnumerable<Dealer.Automovil>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Autos Guardados";
 }
 
-<h2>Index</h2>
+<h2>Autos Guardados</h2>
 
 <table class="table">
     <tr>
@@ -12,25 +12,25 @@
             @Html.DisplayNameFor(model => model.Modelo)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Año_Fabricacion)
+            @Html.DisplayName("Año de Fabricacion")
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Precio)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Tipo_Moneda)
+            @Html.DisplayName("Tipo de Moneda")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Cant_Pasajeros.ID_CanPasajeros)
+           @Html.DisplayName("Cantidad de Pasajeros")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Marca.Marca1)
+            @Html.DisplayName("Marca")
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Tipo_Automovil.Tipo)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Tipo_Trans.Tipo_Trans1)
+            @Html.DisplayName("Tipo de Transmision")
         </th>
         <th></th>
     </tr>

@@ -3,23 +3,61 @@
 @model PagedList.IPagedList<Dealer.Automovil>
 @using PagedList.Mvc;
 <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.css" rel="stylesheet" />
 @{
-    ViewBag.Title = "Index2";
+    ViewBag.Title = "Automoviles";
 }
-<style type="text/css">.block { }
-
- .call { }
+<style type="text/css">
+    .left-out{
+        position:absolute;
+        left:0%;
+        width:30px;
+        overflow:hidden;
+        margin-right:20px;
+    }
+    .text-left{
+        margin-left:-10px;
+    }
+    td{
+        font-size:medium;
+    }
+ .filters { 
+     border:solid;
+border-color: #808080;
+border-width: 1px;
+border-radius: 4px 4px 0 0;
+box-shadow:0 0 8px 0 black;
+ }
 </style>
 <script src="@Url.Content("https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js")" type="text/javascript"></script>
 <script src="@Url.Content("https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js")" type="text/javascript"></script>
-<h2>Index2</h2>
+<h2>Autos Disponibles</h2>
 <script>
-                $(document).ready(function() {
+    $(document).ready(function () {
+        var x = 0;
+        var who = true;
+        $(".filter").click(function () {
+            if (x == 0) {
+                $(".filters").removeClass("slideOutLeft animated");
+                $(".filters").removeAttr("hidden");
+                $(".filters").addClass("slideInLeft animated");
+                x = 1;
+            }
+            else {
+                x = 0;
+                $(".filters").removeClass("slideInLeft animated");
+                $(".filters").addClass("slideOutLeft animated");
+                setTimeout(function () {
+                    $(".filters").attr("hidden", "true");
+                }, 1200);
+            }
+        });
                     Verificar();
                     $("#mandar").click(function() {
                         aplicar();
                     });
                     $(".call").click(function () {
+                        who = false;
                         if ('@User.Identity.GetUserId()' != '') {
                             $.ajax({
                                 url: '@Url.Action("Agregar", "Automoviles")',
@@ -32,8 +70,13 @@
                         }
                     });
 
-                    $(".call1").click(function () {
-                        window.location = $(this).data("href");
+        $(".call1").click(function () {
+            if (who == true) {
+                window.location = $(this).data("href");
+            }
+            else {
+                who = true;
+            }
                     });
                 });
 
@@ -79,48 +122,52 @@
     <p>
         @using (Html.BeginForm("Index2", "Automoviles"))
         {
-            <div class="form-inline">
-            <div class="col-md-3">
+            <div class="left-out">
+                <button type='button' class="btn btn-primary text-left filter" style="border:none; width:30px; text-align:left !important; overflow:hidden; writing-mode: vertical-rl;text-orientation: upright;">Filters</button>
+            </div>            
+            <div class="form-inline filters" hidden>
+                <div class="col-md-3">
                     Marca
-                    @Html.DropDownList("ID_Marca", null, "", htmlAttributes: new {@class = "form-control", id = "force1", @data_placeholder = "whatever"})
-                <input type="text" name="searchString2" id="primero" hidden @ViewBag.CurrentFilter2 as string>
-                    </div>
-           <div class="col-md-3">
-                Modelo
-                @Html.TextBox("searchString", ViewBag.CurrentFilter as string, new { @class="form-control"})
-            </div>
+                    @Html.DropDownList("ID_Marca", null, "", htmlAttributes: new { @class = "form-control", id = "force1", @data_placeholder = "whatever" })
+                    <input type="text" name="searchString2" id="primero" hidden @ViewBag.CurrentFilter2 as string>
+                </div>
+                <div class="col-md-3">
+                    Modelo
+                    @Html.TextBox("searchString", ViewBag.CurrentFilter as string, new { @class = "form-control" })
+                </div>
                 <div class="col-md-3">
                     Tipo de Automovil
-                    @Html.DropDownList("ID_Tipo", null, "", htmlAttributes: new {@class = "form-control", id = "force2", @name = "searchString3"})
+                    @Html.DropDownList("ID_Tipo", null, "", htmlAttributes: new { @class = "form-control", id = "force2", @name = "searchString3" })
                     <input type="text" name="searchString3" id="segundo" hidden @ViewBag.CurrentFilter3 as string>
-                        
+
                 </div>
                 <div class="col-md-3">
                     Tipo de Transmision
                     @Html.DropDownList("ID_TipoTrans", null, "", htmlAttributes: new { @class = "form-control", id = "force4", @name = "searchString7" })
-                    
+
                     <input type="text" name="searchString7" id="cuarto" hidden @ViewBag.CurrentFilter7 as string>
                 </div>
                 <div class="col-md-3">
                     Tipo de moneda
                     @Html.TextBox("searchString1", ViewBag.CurrentFilter1 as string, new { @class = "form-control" })
                 </div>
-           <div class="col-md-3">
-                                    Cantidad de Pasajeros
-                                    @Html.DropDownList("ID_CantPasajeros", null, "", htmlAttributes: new { @class = "form-control", id = "force3", @name = "searchString4" })
-               <input type="text" name="searchString4" id="tercero" hidden @ViewBag.CurrentFilter4 as string>
-               </div>
-           <div class="col-md-3">
-                                        Año
-                                        @Html.DropDownList("SearchString5", Enumerable.Range(1940, DateTime.Now.Year - 1940 + 1).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }) , "Please select year", new { @class = "form-control", @id = "force5"})
-               <input type="text" id="quinto" hidden @ViewBag.CurrentFilter5 as string>
-           </div>
-           <div class="col-md-3">
-                                            Precio @Html.TextBox("SearchString6", ViewBag.CurrentFilter6 as string, new { @class = "form-control" })
-                                        </div>
-            </div>
-            <div class="col-md-10">
-            <button type="submit" value="Search" id="mandar" class="btn btn-primary" style="margin:10px;">Buscar</button>
+                <div class="col-md-3">
+                    Cantidad de Pasajeros
+                    @Html.DropDownList("ID_CantPasajeros", null, "", htmlAttributes: new { @class = "form-control", id = "force3", @name = "searchString4" })
+                    <input type="text" name="searchString4" id="tercero" hidden @ViewBag.CurrentFilter4 as string>
+                </div>
+                <div class="col-md-3">
+                    Año
+                    @Html.DropDownList("SearchString5", Enumerable.Range(1940, DateTime.Now.Year - 1940 + 1).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }), "Please select year", new { @class = "form-control", @id = "force5" })
+                    <input type="text" id="quinto" hidden @ViewBag.CurrentFilter5 as string>
+                </div>
+                <div class="col-md-3">
+                    Precio @Html.TextBox("SearchString6", ViewBag.CurrentFilter6 as string, new { @class = "form-control" })
+                </div>
+
+                <div class="col-md-10">
+                    <button type="submit" value="Search" id="mandar" class="btn btn-primary" style="margin:10px;">Buscar</button>
+                </div>
             </div>
         }
         
@@ -135,42 +182,40 @@
 
         @foreach (var item in Model)
         {
-            
-            <tr data-href='AutoDetails/@item.ID_Auto'>
-                <div class='call1' style="cursor: pointer;">
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Modelo)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Año_Fabricacion)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Precio)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Tipo_Moneda)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Cant_Pasajeros.ID_CanPasajeros)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Marca.Marca1)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Tipo_Automovil.Tipo)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Tipo_Trans.Tipo_Trans1)
-                    </td>
-                </div>
-                    <td>
-                        <button class="btn btn-primary call" id="@item.ID_Auto" style="z-index:1;">Agregar a Guardados</button>
-                    </td>
-</tr>
-               
-        }
+                    <tr data-href='AutoDetails/@item.ID_Auto' style="cursor:pointer;" class="call1">
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Modelo)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Año_Fabricacion)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Precio)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Tipo_Moneda)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Cant_Pasajeros.ID_CanPasajeros)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Marca.Marca1)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Tipo_Automovil.Tipo)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Tipo_Trans.Tipo_Trans1)
+                        </td>
 
-    </table>
+                        <td>
+                            <button class="btn btn-primary call" id="@item.ID_Auto" style="z-index:1;">Agregar a Guardados</button>
+                        </td>
+                    </tr>
+
+                }
+
+</table>
 Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
 
 @Html.PagedListPager(Model, page => Url.Action("Index2",

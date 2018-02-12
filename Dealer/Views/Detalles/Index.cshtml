@@ -1,13 +1,25 @@
 ﻿@model IEnumerable<Dealer.Detalle>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Detalle de los Autos";
 }
 
-<h2>Index</h2>
+<h2>Detalles</h2>
+<style>
+    .hidden{
+        display:none;
+    }
+</style>
+<script>
+    $(document).ready(function () {
+        if ('@User.IsInRole("Administrator")' === "True") {
+            $(".admin").removeClass("hidden");
+        }
+    });
+    </script>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create New", "Create", null,new { @class= "hidden admin" } )
 </p>
 <table class="table">
     <tr>
@@ -53,9 +65,8 @@
             @Html.DisplayFor(modelItem => item.Sucursal.Nombre)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID_Condicion }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID_Condicion }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID_Condicion })
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID_Condicion}, new { @class = "hidden admin" }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID_Condicion }, new { @class = "hidden admin" })
         </td>
     </tr>
 }
