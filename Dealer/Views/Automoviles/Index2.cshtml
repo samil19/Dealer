@@ -123,9 +123,9 @@ box-shadow:0 0 8px 0 black;
         @using (Html.BeginForm("Index2", "Automoviles"))
         {
             <div class="left-out">
-                <button type='button' class="btn btn-primary text-left filter" style="border:none; width:30px; text-align:left !important; overflow:hidden; writing-mode: vertical-rl;text-orientation: upright;">Filters</button>
+                <button type='button' class="btn btn-primary text-left filter" style="border:none; width:30px; text-align:left !important; overflow:hidden; writing-mode: vertical-rl;text-orientation: upright; z-index: 1;">Filters</button>
             </div>            
-            <div class="form-inline filters" hidden>
+            <div class="form-inline filters" hidden style="z-index: -1;">
                 <div class="col-md-3">
                     Marca
                     @Html.DropDownList("ID_Marca", null, "", htmlAttributes: new { @class = "form-control", id = "force1", @data_placeholder = "whatever" })

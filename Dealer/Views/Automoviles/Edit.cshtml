@@ -5,6 +5,93 @@
 }
 
 <h2>Edit</h2>
+<style>
+    img{
+        cursor:pointer;
+    }
+</style>
+<link href="http://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.css" rel="stylesheet"> <!-- 3 KB -->
+<script src="http://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.js"></script> <!-- 16 KB -->
+<script charset="utf-8" src="https://ucarecdn.com/libs/widget/3.2.2/uploadcare.full.min.js"></script>
+<script>
+    var UPLOADCARE_PUBLIC_KEY = "81808490553521e0a015";
+    $('document').ready(function () {
+        $(".uploader").click(function () {
+            widged();
+        });
+        $(".getit").click(function () {
+            var test = $(".deletet").val();
+            deleteb(test);
+        });
+    });
+
+    function widged() {
+        uploadcare.openDialog(null, {
+            imagesOnly: true,
+            previewStep: true,
+            multiple: false,
+            crop: true
+        }).done(function (file) {
+            file.promise().done(function (fileInfo) {
+                info(fileInfo.uuid);
+                console.log(fileInfo);
+
+            });
+        });
+    }
+
+    function deleteb(uuid) {
+        $.ajax({
+            url: "https://api.uploadcare.com/files/" + uuid + "/",
+            type: "DELETE",
+            headers: {
+                "Accept": "application/vnd.uploadcare-v0.5+json",
+                "Authorization": "Uploadcare.Simple 81808490553521e0a015:e8c01c723910e60dd0cd"
+            },
+            // crossOrigin : "Anonymous",
+
+            //crossDomain: true,
+            success: function (result) {
+                alert("yessss");
+                console.log(result);
+            },
+            error: function (result) {
+                alert("ouuuh");
+                console.log(result);
+            }
+        });
+    }
+
+    //cdnUrl
+
+    function info(uuid) {
+        $.ajax({
+            url: "https://upload.uploadcare.com/group/info/?pub_key=" + UPLOADCARE_PUBLIC_KEY + "\&group_id=" + uuid,
+            type: "GET",
+            headers: { //"Accept": "application/vnd.uploadcare-v0.5+json",
+                //"Authorization": "Uploadcare.Simple 81808490553521e0a015:e8c01c723910e60dd0cd"
+            },
+            // crossOrigin : "Anonymous",
+
+            //crossDomain: true,
+            success: function (result) {
+                alert("yessss");
+                console.log(result);
+                for (var i = 0; i < result.files_count; i++) {
+                    $("#image" + i).val("https://ucarecdn.com/" + result.files[i].file_id + "/" + result.files[i].filename);
+                    $("#id" + i).val(result.files[i].file_id);
+                        $(".main").append("https://ucarecdn.com/" + result.files[i].file_id + "/" + result.files[i].filename);
+                    }
+                
+            },
+            error: function (result) {
+                alert("ouuuh");
+                console.log(result);
+            }
+        });
+    }
+
+</script>
 
 @using (Html.BeginForm())
 {
@@ -79,15 +166,51 @@
                 @Html.ValidationMessageFor(model => model.Tipo_Moneda, "", new { @class = "text-danger" })
             </div>
         </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+        
+        <div class="col-md-10">
+            
+            <!-- 2. Add images to <div class="fotorama"></div>. -->
+            <div class="fotorama" data-click="false" shadows="true" data-keyboard="true" data-nav="thumbs" data-allowfullscreen="native">
+                <img src="@Url.Content(Model.Image)">
+                <img src="@Url.Content(Model.Image1)">
+                <img src="@Url.Content(Model.Image2)">
+                <img src="@Url.Content(Model.Image3)">
+                <img src="@Url.Content(Model.Image4)">
+            </div>
+            </div>
+        <div class="form-group main">
+            <div class="col-md-10">
+                <button class="uploader" type="button" data-crop="free, 16:9, 4:3, 5:4, 1:1">Delete an image</button>
             </div>
         </div>
-    </div>
+            <div class="form-group">
+                @Html.EditorFor(model => model.Image, new { htmlAttributes = new { @class = "form-control hidden", id = "image0" } })
+                @Html.EditorFor(model => model.Image1, new { htmlAttributes = new { @class = "form-control hidden", id = "image1" } })
+                @Html.EditorFor(model => model.Image2, new { htmlAttributes = new { @class = "form-control hidden", id = "image2" } })
+                @Html.EditorFor(model => model.Image3, new { htmlAttributes = new { @class = "form-control hidden", id = "image3" } })
+                @Html.EditorFor(model => model.Image4, new { htmlAttributes = new { @class = "form-control hidden", id = "image4" } })
+            </div>
+
+            <div class="form-group">
+                @Html.EditorFor(model => model.ID_Image, new { htmlAttributes = new { @class = "form-control hidden", id = "id0" } })
+                @Html.EditorFor(model => model.ID_Image1, new { htmlAttributes = new { @class = "form-control hidden", id = "id1" } })
+                @Html.EditorFor(model => model.ID_Image2, new { htmlAttributes = new { @class = "form-control hidden", id = "id2" } })
+                @Html.EditorFor(model => model.ID_Image3, new { htmlAttributes = new { @class = "form-control hidden", id = "id3" } })
+                @Html.EditorFor(model => model.ID_Image4, new { htmlAttributes = new { @class = "form-control hidden", id = "id4" } })
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Save" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
 }
 
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -414,10 +414,8 @@
     <Content Include="Views\Admin\EditUser.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Admin\ViewAllRoles.cshtml" />
-    <Content Include="Views\Automoviles\Create.cshtml" />
     <Content Include="Views\Automoviles\Delete.cshtml" />
     <Content Include="Views\Automoviles\Details.cshtml" />
-    <Content Include="Views\Automoviles\Edit.cshtml" />
     <Content Include="Views\Automoviles\Index.cshtml" />
     <Content Include="Views\Automoviles\Search.cshtml" />
     <Content Include="Views\Automoviles\Index2.cshtml" />
@@ -427,6 +425,8 @@
     <Content Include="Views\Saved\Index.cshtml" />
     <Content Include="Views\Automoviles\SavedIndex.cshtml" />
     <Content Include="Views\Automoviles\AutoDetails.cshtml" />
+    <Content Include="Views\Automoviles\Create.cshtml" />
+    <Content Include="Views\Automoviles\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

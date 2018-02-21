@@ -32,6 +32,16 @@ namespace Dealer
         public int ID_TipoTrans { get; set; }
         public decimal Precio { get; set; }
         public string Tipo_Moneda { get; set; }
+        public string Image { get; set; }
+        public string Image1 { get; set; }
+        public string Image2 { get; set; }
+        public string Image3 { get; set; }
+        public string Image4 { get; set; }
+        public string ID_Image { get; set; }
+        public string ID_Image1 { get; set; }
+        public string ID_Image2 { get; set; }
+        public string ID_Image3 { get; set; }
+        public string ID_Image4 { get; set; }
     
         public virtual Cant_Pasajeros Cant_Pasajeros { get; set; }
         public virtual Marca Marca { get; set; }
