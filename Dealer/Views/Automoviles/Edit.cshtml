@@ -3,11 +3,27 @@
 @{
     ViewBag.Title = "Edit";
 }
-
-<h2>Edit</h2>
 <style>
-    img{
-        cursor:pointer;
+    img {
+        cursor: pointer;
+    }
+    .all{
+        z-index: -1;
+    }
+    .blur {
+        -webkit-filter: blur(100px); /* Safari 6.0 - 9.0 */
+        filter: blur(10px);
+        pointer-events: none;
+    }
+
+    .seleccionando {
+        position: fixed;
+        top: 45%;
+        z-index: 1;
+        left: 45%;
+    }
+    .clikable{
+        cursor: pointer;
     }
 </style>
 <link href="http://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.css" rel="stylesheet"> <!-- 3 KB -->
@@ -16,6 +32,16 @@
 <script>
     var UPLOADCARE_PUBLIC_KEY = "81808490553521e0a015";
     $('document').ready(function () {
+        $(".cambiar").click(function () {
+            $(".bottons").attr("hidden", "true");
+            $(".imagenes").removeAttr("hidden");
+            $(".seleccionando").css({"top": "30%", "left":"17%"});
+        });
+        $("#change").click(function () {
+            $(".all").addClass("blur");
+            $(".bottons").removeAttr("hidden");
+            $(".seleccionando").removeAttr("hidden");
+        });
         $(".uploader").click(function () {
             widged();
         });
@@ -25,7 +51,15 @@
         });
     });
 
-    function widged() {
+    function modificar(uuid,numero) {
+        deleteb(uuid,numero);
+        widged(numero);
+    }
+
+    function widged(numer) {
+        $(".all").removeClass("blur");
+        $(".seleccionando").attr("hidden", "true");
+        $(".imagenes").attr("hidden", "true");
         uploadcare.openDialog(null, {
             imagesOnly: true,
             previewStep: true,
@@ -33,14 +67,17 @@
             crop: true
         }).done(function (file) {
             file.promise().done(function (fileInfo) {
-                info(fileInfo.uuid);
+                //info(fileInfo.uuid, numer);
+                $("#image" + numer).val("https://ucarecdn.com/" + fileInfo.uuid + "/" + fileInfo.name);
+                $("#id" + numer).val(fileInfo.uuid);
+
                 console.log(fileInfo);
 
             });
         });
     }
 
-    function deleteb(uuid) {
+    function deleteb(uuid,selector) {
         $.ajax({
             url: "https://api.uploadcare.com/files/" + uuid + "/",
             type: "DELETE",
@@ -52,11 +89,13 @@
 
             //crossDomain: true,
             success: function (result) {
-                alert("yessss");
+                alert("Lo elimine");
+                $("#image" + selector).val("");
+                $("#id" + selector).val("");
                 console.log(result);
             },
             error: function (result) {
-                alert("ouuuh");
+                alert("No se elimino");
                 console.log(result);
             }
         });
@@ -64,7 +103,8 @@
 
     //cdnUrl
 
-    function info(uuid) {
+    function info(uuid, selector) {
+        alert(uuid);
         $.ajax({
             url: "https://upload.uploadcare.com/group/info/?pub_key=" + UPLOADCARE_PUBLIC_KEY + "\&group_id=" + uuid,
             type: "GET",
@@ -77,114 +117,139 @@
             success: function (result) {
                 alert("yessss");
                 console.log(result);
-                for (var i = 0; i < result.files_count; i++) {
-                    $("#image" + i).val("https://ucarecdn.com/" + result.files[i].file_id + "/" + result.files[i].filename);
-                    $("#id" + i).val(result.files[i].file_id);
-                        $(".main").append("https://ucarecdn.com/" + result.files[i].file_id + "/" + result.files[i].filename);
-                    }
-                
-            },
+                $("#image" + selector).val("https://ucarecdn.com/" + result.files[0].file_id + "/" + result.files[0].filename);
+                $("#id" + selector).val(result.files[0].file_id);
+                $(".main").append("https://ucarecdn.com/" + result.files[0].file_id + "/" + result.files[0].filename);
+                            },
             error: function (result) {
-                alert("ouuuh");
+                alert("La informacion no se obtuvo");
                 console.log(result);
             }
         });
     }
-
+    //class="uploader"
 </script>
-
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>Automovil</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.ID_Auto)
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.ID_Marca, "ID_Marca", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("ID_Marca", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.ID_Marca, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Modelo, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Modelo, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Modelo, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Año_Fabricacion, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Año_Fabricacion, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Año_Fabricacion, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.ID_Tipo, "ID_Tipo", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("ID_Tipo", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.ID_Tipo, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.ID_CantPasajeros, "ID_CantPasajeros", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("ID_CantPasajeros", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.ID_CantPasajeros, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.ID_TipoTrans, "ID_TipoTrans", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("ID_TipoTrans", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.ID_TipoTrans, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Precio, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Precio, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Precio, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Tipo_Moneda, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Tipo_Moneda, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Tipo_Moneda, "", new { @class = "text-danger" })
-            </div>
-        </div>
+<div class="seleccionando" hidden>
+    <div class="bottons" hidden>
+        <button class="cambiar">Cambiar Imagen</button>
+        <button class="eliminar">Eliminar Imagen</button>
         
-        <div class="col-md-10">
-            
-            <!-- 2. Add images to <div class="fotorama"></div>. -->
-            <div class="fotorama" data-click="false" shadows="true" data-keyboard="true" data-nav="thumbs" data-allowfullscreen="native">
-                <img src="@Url.Content(Model.Image)">
-                <img src="@Url.Content(Model.Image1)">
-                <img src="@Url.Content(Model.Image2)">
-                <img src="@Url.Content(Model.Image3)">
-                <img src="@Url.Content(Model.Image4)">
-            </div>
-            </div>
-        <div class="form-group main">
-            <div class="col-md-10">
-                <button class="uploader" type="button" data-crop="free, 16:9, 4:3, 5:4, 1:1">Delete an image</button>
-            </div>
-        </div>
+    </div>
+    <div class="imagenes" hidden>
+        <a onclick="modificar('@Model.ID_Image', '0')"><img src="@Url.Content(Model.Image)" height="150"></a>
+        <a onclick="modificar('@Model.ID_Image1', 1)"><img src="@Url.Content(Model.Image1)" height="150"></a>
+        <a onclick="modificar('@Model.ID_Image2', 2)"><img src="@Url.Content(Model.Image2)" height="150"></a>
+        <a onclick="modificar('@Model.ID_Image3', 3)"><img src="@Url.Content(Model.Image3)" height="150"></a>
+        <a onclick="modificar('@Model.ID_Image4', 4)"><img src="@Url.Content(Model.Image4)" height="150"></a>
+                        
+    </div>
+</div>
+<div class="all">
+    <h2>Edit</h2>
+
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <h4>Automovil</h4>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.ID_Auto)
+
             <div class="form-group">
-                @Html.EditorFor(model => model.Image, new { htmlAttributes = new { @class = "form-control hidden", id = "image0" } })
+                @Html.LabelFor(model => model.ID_Marca, "ID_Marca", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownList("ID_Marca", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.ID_Marca, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Modelo, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Modelo, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Modelo, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Año_Fabricacion, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Año_Fabricacion, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Año_Fabricacion, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.ID_Tipo, "ID_Tipo", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownList("ID_Tipo", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.ID_Tipo, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.ID_CantPasajeros, "ID_CantPasajeros", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownList("ID_CantPasajeros", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.ID_CantPasajeros, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.ID_TipoTrans, "ID_TipoTrans", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownList("ID_TipoTrans", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.ID_TipoTrans, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Precio, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Precio, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Precio, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Tipo_Moneda, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Tipo_Moneda, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Tipo_Moneda, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="col-md-10">
+
+                <!-- 2. Add images to <div class="fotorama"></div>. -->
+                <div class="fotorama" data-click="false" shadows="true" data-keyboard="true" data-nav="thumbs" data-allowfullscreen="native">
+                    <div class="clikable" onclick="modificar('@Model.ID_Image', '0')">
+                    <img src="@Url.Content(Model.Image)">
+                    </div>
+                    <div class="clikable" onclick="modificar('@Model.ID_Image1', 1)">
+                        <img src="@Url.Content(Model.Image1)">
+                    </div>
+                    <div class="clikable" onclick="modificar('@Model.ID_Image2', 2)">
+                        <img src="@Url.Content(Model.Image2)">
+                    </div>
+                    <div class="clikable" onclick="modificar('@Model.ID_Image3', 3)">
+                        <img src="@Url.Content(Model.Image3)">
+                    </div>
+                    <div class="clikable" onclick="modificar('@Model.ID_Image4', 4)">
+                        <img src="@Url.Content(Model.Image4)">
+                    </div>
+                            </div>
+            </div>
+            <div class="form-group main">
+                <div class="col-md-10">
+                    <button id="change"  type="button" data-crop="free, 16:9, 4:3, 5:4, 1:1">Delete an image</button>
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.EditorFor(model => model.Image, new { htmlAttributes = new { @class = "form-control ", id = "image0" } })
                 @Html.EditorFor(model => model.Image1, new { htmlAttributes = new { @class = "form-control hidden", id = "image1" } })
                 @Html.EditorFor(model => model.Image2, new { htmlAttributes = new { @class = "form-control hidden", id = "image2" } })
                 @Html.EditorFor(model => model.Image3, new { htmlAttributes = new { @class = "form-control hidden", id = "image3" } })
@@ -192,7 +257,7 @@
             </div>
 
             <div class="form-group">
-                @Html.EditorFor(model => model.ID_Image, new { htmlAttributes = new { @class = "form-control hidden", id = "id0" } })
+                @Html.EditorFor(model => model.ID_Image, new { htmlAttributes = new { @class = "form-control ", id = "id0" } })
                 @Html.EditorFor(model => model.ID_Image1, new { htmlAttributes = new { @class = "form-control hidden", id = "id1" } })
                 @Html.EditorFor(model => model.ID_Image2, new { htmlAttributes = new { @class = "form-control hidden", id = "id2" } })
                 @Html.EditorFor(model => model.ID_Image3, new { htmlAttributes = new { @class = "form-control hidden", id = "id3" } })
@@ -205,12 +270,13 @@
                 </div>
             </div>
         </div>
-}
+    }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
+    <div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }
+    </div>
