@@ -112,7 +112,14 @@ namespace Dealer.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Detalle detalle = db.Detalles.Find(id);
+
+            var details = db.Detalles.ToList();
+
+            var det = (from he in details where he.ID_Auto == id select he.ID_Condicion).ToList();
+
+            //int testing = int.Parse(det[0]);
+            
+            Detalle detalle = db.Detalles.Find(det[0]);
             if (detalle == null)
             {
                 return HttpNotFound();
@@ -125,10 +132,13 @@ namespace Dealer.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Detalle detalle = db.Detalles.Find(id);
+            var details = db.Detalles.ToList();
+
+            var det = (from he in details where he.ID_Auto == id select he.ID_Condicion).ToList();
+            Detalle detalle = db.Detalles.Find(det[0]);
             db.Detalles.Remove(detalle);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("../Automoviles/Delete/"+id);
         }
 
         protected override void Dispose(bool disposing)

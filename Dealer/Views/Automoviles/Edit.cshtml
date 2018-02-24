@@ -90,8 +90,8 @@
             //crossDomain: true,
             success: function (result) {
                 alert("Lo elimine");
-                $("#image" + selector).val("");
-                $("#id" + selector).val("");
+                $("#image" + selector).val("https://db5ee64fc93217a3cb2c-3b304e208a7465a114f6c8ed51afee3f.ssl.cf2.rackcdn.com/288240ef6546076c2976e3e59c6c7f6c-1ec1f333d35d2bad724a3278cb55fb9d.jpg");
+                $("#id" + selector).val("No Data");
                 console.log(result);
             },
             error: function (result) {
@@ -136,11 +136,11 @@
         
     </div>
     <div class="imagenes" hidden>
-        <a onclick="modificar('@Model.ID_Image', '0')"><img src="@Url.Content(Model.Image)" height="150"></a>
-        <a onclick="modificar('@Model.ID_Image1', 1)"><img src="@Url.Content(Model.Image1)" height="150"></a>
-        <a onclick="modificar('@Model.ID_Image2', 2)"><img src="@Url.Content(Model.Image2)" height="150"></a>
-        <a onclick="modificar('@Model.ID_Image3', 3)"><img src="@Url.Content(Model.Image3)" height="150"></a>
-        <a onclick="modificar('@Model.ID_Image4', 4)"><img src="@Url.Content(Model.Image4)" height="150"></a>
+        <a onclick="modificar('@Model.ID_Image', '0')"><img src="@Url.Content(Model.Image ?? "https://www.portraitsmaker.com/wp-content/uploads/2016/12/WhatsApp-Image-2016-12-28-at-2.22.09-AM.jpeg")" height="150"></a>
+        <a onclick="modificar('@Model.ID_Image1', 1)"><img src="@Url.Content(Model.Image1 ?? "https://www.portraitsmaker.com/wp-content/uploads/2016/12/WhatsApp-Image-2016-12-28-at-2.22.09-AM.jpeg")" height="150"></a>
+        <a onclick="modificar('@Model.ID_Image2', 2)"><img src="@Url.Content(Model.Image2 ?? "https://www.portraitsmaker.com/wp-content/uploads/2016/12/WhatsApp-Image-2016-12-28-at-2.22.09-AM.jpeg")" height="150"></a>
+        <a onclick="modificar('@Model.ID_Image3', 3)"><img src="@Url.Content(Model.Image3 ?? "https://www.portraitsmaker.com/wp-content/uploads/2016/12/WhatsApp-Image-2016-12-28-at-2.22.09-AM.jpeg")" height="150"></a>
+        <a onclick="modificar('@Model.ID_Image4', 4)"><img src="@Url.Content(Model.Image4 ?? "https://www.portraitsmaker.com/wp-content/uploads/2016/12/WhatsApp-Image-2016-12-28-at-2.22.09-AM.jpeg")" height="150"></a>
                         
     </div>
 </div>
@@ -227,19 +227,19 @@
                 <!-- 2. Add images to <div class="fotorama"></div>. -->
                 <div class="fotorama" data-click="false" shadows="true" data-keyboard="true" data-nav="thumbs" data-allowfullscreen="native">
                     <div class="clikable" onclick="modificar('@Model.ID_Image', '0')">
-                    <img src="@Url.Content(Model.Image)">
+                    <img src="@Url.Content(Model.Image ?? "https://www.portraitsmaker.com/wp-content/uploads/2016/12/WhatsApp-Image-2016-12-28-at-2.22.09-AM.jpeg")">
                     </div>
                     <div class="clikable" onclick="modificar('@Model.ID_Image1', 1)">
-                        <img src="@Url.Content(Model.Image1)">
+                        <img src="@Url.Content(Model.Image1 ?? "https://www.portraitsmaker.com/wp-content/uploads/2016/12/WhatsApp-Image-2016-12-28-at-2.22.09-AM.jpeg")">
                     </div>
                     <div class="clikable" onclick="modificar('@Model.ID_Image2', 2)">
-                        <img src="@Url.Content(Model.Image2)">
+                        <img src="@Url.Content(Model.Image2 ?? "https://www.portraitsmaker.com/wp-content/uploads/2016/12/WhatsApp-Image-2016-12-28-at-2.22.09-AM.jpeg")">
                     </div>
                     <div class="clikable" onclick="modificar('@Model.ID_Image3', 3)">
-                        <img src="@Url.Content(Model.Image3)">
+                        <img src="@Url.Content(Model.Image3 ?? "https://www.portraitsmaker.com/wp-content/uploads/2016/12/WhatsApp-Image-2016-12-28-at-2.22.09-AM.jpeg")">
                     </div>
                     <div class="clikable" onclick="modificar('@Model.ID_Image4', 4)">
-                        <img src="@Url.Content(Model.Image4)">
+                        <img src="@Url.Content(Model.Image4 ?? "https://www.portraitsmaker.com/wp-content/uploads/2016/12/WhatsApp-Image-2016-12-28-at-2.22.09-AM.jpeg")">
                     </div>
                             </div>
             </div>
@@ -249,7 +249,7 @@
                 </div>
             </div>
             <div class="form-group">
-                @Html.EditorFor(model => model.Image, new { htmlAttributes = new { @class = "form-control ", id = "image0" } })
+                @Html.EditorFor(model => model.Image, new { htmlAttributes = new { @class = "form-control hidden", id = "image0" } })
                 @Html.EditorFor(model => model.Image1, new { htmlAttributes = new { @class = "form-control hidden", id = "image1" } })
                 @Html.EditorFor(model => model.Image2, new { htmlAttributes = new { @class = "form-control hidden", id = "image2" } })
                 @Html.EditorFor(model => model.Image3, new { htmlAttributes = new { @class = "form-control hidden", id = "image3" } })
@@ -257,7 +257,7 @@
             </div>
 
             <div class="form-group">
-                @Html.EditorFor(model => model.ID_Image, new { htmlAttributes = new { @class = "form-control ", id = "id0" } })
+                @Html.EditorFor(model => model.ID_Image, new { htmlAttributes = new { @class = "form-control hidden", id = "id0" } })
                 @Html.EditorFor(model => model.ID_Image1, new { htmlAttributes = new { @class = "form-control hidden", id = "id1" } })
                 @Html.EditorFor(model => model.ID_Image2, new { htmlAttributes = new { @class = "form-control hidden", id = "id2" } })
                 @Html.EditorFor(model => model.ID_Image3, new { htmlAttributes = new { @class = "form-control hidden", id = "id3" } })
