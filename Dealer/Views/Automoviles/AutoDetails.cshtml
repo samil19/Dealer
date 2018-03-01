@@ -5,11 +5,22 @@
 }
 
 <h2>AutoDetails</h2>
-
+<link href="http://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.css" rel="stylesheet"> <!-- 3 KB -->
+<script src="http://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.js"></script> <!-- 16 KB -->
 <div>
     <h4>Automovil</h4>
     <hr />
     <dl class="dl-horizontal">
+        <dd>
+            <div class="fotorama" data-click="false" data-keyboard="true" data-allowfullscreen="true" align="center">
+                    <img class="image0" src="@Url.Content(Model.Automovil.Image == null || Model.Automovil.Image == "" ? "https://ucarecdn.com/23e99bb4-fc95-43fc-962b-79d3c77f1e8b/no_image_placeholder.png" : Model.Automovil.Image)">
+                    <img class="image1" src="@Url.Content(Model.Automovil.Image1 == null || Model.Automovil.Image == "" ? "https://ucarecdn.com/23e99bb4-fc95-43fc-962b-79d3c77f1e8b/no_image_placeholder.png" : Model.Automovil.Image1)">
+                    <img class="image2" src="@Url.Content(Model.Automovil.Image2 == null || Model.Automovil.Image == "" ? "https://ucarecdn.com/23e99bb4-fc95-43fc-962b-79d3c77f1e8b/no_image_placeholder.png" : Model.Automovil.Image2)">
+                    <img class="image3" src="@Url.Content(Model.Automovil.Image3 == null || Model.Automovil.Image == "" ? "https://ucarecdn.com/23e99bb4-fc95-43fc-962b-79d3c77f1e8b/no_image_placeholder.png" : Model.Automovil.Image3)">
+                    <img class="image4" src="@Url.Content(Model.Automovil.Image4 == null || Model.Automovil.Image == "" ? "https://ucarecdn.com/23e99bb4-fc95-43fc-962b-79d3c77f1e8b/no_image_placeholder.png" : Model.Automovil.Image4)">
+            </div>
+        </dd>
+        
         <dt>
             @Html.DisplayNameFor(model => model.Automovil.Modelo)
         </dt>

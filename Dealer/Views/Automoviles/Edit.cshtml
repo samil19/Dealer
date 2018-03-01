@@ -6,6 +6,9 @@
 <style>
     img {
         cursor: pointer;
+    max-width: 100%;
+    max-height: 100%;
+
     }
     .all{
         z-index: -1;
@@ -30,26 +33,48 @@
 <script src="http://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.js"></script> <!-- 16 KB -->
 <script charset="utf-8" src="https://ucarecdn.com/libs/widget/3.2.2/uploadcare.full.min.js"></script>
 <script>
+    var hacer = 'null';
+    var suuid;
+    var sid;
     var UPLOADCARE_PUBLIC_KEY = "81808490553521e0a015";
     $('document').ready(function () {
         $(".cambiar").click(function () {
+            $(".all").removeClass("blur");
+            $(".seleccionando").attr("hidden", "true");
             $(".bottons").attr("hidden", "true");
-            $(".imagenes").removeAttr("hidden");
-            $(".seleccionando").css({"top": "30%", "left":"17%"});
+            modificar(suuid, sid);
+            suuid = '';
+            sid = '';
+
         });
-        $("#change").click(function () {
-            $(".all").addClass("blur");
-            $(".bottons").removeAttr("hidden");
-            $(".seleccionando").removeAttr("hidden");
+        $(".eliminar").click(function () {
+            $(".all").removeClass("blur");
+            $(".seleccionando").attr("hidden", "true");
+            deleteb(suuid, sid);
+            suuid = '';
+            sid = '';
+            $(".bottons").attr("hidden", "true");
+        });
+        $(".cancel").click(function () {
+            $(".all").removeClass("blur");
+            $(".seleccionando").attr("hidden", "true");
+            suuid = '';
+            sid = '';
+            $(".bottons").attr("hidden", "true");
         });
         $(".uploader").click(function () {
             widged();
         });
-        $(".getit").click(function () {
-            var test = $(".deletet").val();
-            deleteb(test);
-        });
     });
+
+    function need(id,number) {
+        $(".all").addClass("blur");
+        $(".bottons").removeAttr("hidden");
+        $(".seleccionando").removeAttr("hidden");
+            suuid = id;
+            sid = number;
+        
+    }
 
     function modificar(uuid,numero) {
         deleteb(uuid,numero);
@@ -68,9 +93,9 @@
         }).done(function (file) {
             file.promise().done(function (fileInfo) {
                 //info(fileInfo.uuid, numer);
-                $("#image" + numer).val("https://ucarecdn.com/" + fileInfo.uuid + "/" + fileInfo.name);
+                $(".image" + numer).val("https://ucarecdn.com/" + fileInfo.uuid + "/" + fileInfo.name);
+                $(".image" + numer).attr('src', 'https://ucarecdn.com/' + fileInfo.uuid + '/' + fileInfo.name);
                 $("#id" + numer).val(fileInfo.uuid);
-
                 console.log(fileInfo);
 
             });
@@ -89,14 +114,13 @@
 
             //crossDomain: true,
             success: function (result) {
-                alert("Lo elimine");
-                $("#image" + selector).val("https://db5ee64fc93217a3cb2c-3b304e208a7465a114f6c8ed51afee3f.ssl.cf2.rackcdn.com/288240ef6546076c2976e3e59c6c7f6c-1ec1f333d35d2bad724a3278cb55fb9d.jpg");
-                $("#id" + selector).val("No Data");
-                console.log(result);
+                alert("Imagen Eliminada");
+                $("#image" + selector).val("");
+                $("#id" + selector).val("");
+                $(".image" + selector).val("");
             },
             error: function (result) {
-                alert("No se elimino");
-                console.log(result);
+                alert("Imagen no se elimino");
             }
         });
     }
@@ -133,15 +157,7 @@
     <div class="bottons" hidden>
         <button class="cambiar">Cambiar Imagen</button>
         <button class="eliminar">Eliminar Imagen</button>
-        
-    </div>
-    <div class="imagenes" hidden>
-        <a onclick="modificar('@Model.ID_Image', '0')"><img src="@Url.Content(Model.Image ?? "https://www.portraitsmaker.com/wp-content/uploads/2016/12/WhatsApp-Image-2016-12-28-at-2.22.09-AM.jpeg")" height="150"></a>
-        <a onclick="modificar('@Model.ID_Image1', 1)"><img src="@Url.Content(Model.Image1 ?? "https://www.portraitsmaker.com/wp-content/uploads/2016/12/WhatsApp-Image-2016-12-28-at-2.22.09-AM.jpeg")" height="150"></a>
-        <a onclick="modificar('@Model.ID_Image2', 2)"><img src="@Url.Content(Model.Image2 ?? "https://www.portraitsmaker.com/wp-content/uploads/2016/12/WhatsApp-Image-2016-12-28-at-2.22.09-AM.jpeg")" height="150"></a>
-        <a onclick="modificar('@Model.ID_Image3', 3)"><img src="@Url.Content(Model.Image3 ?? "https://www.portraitsmaker.com/wp-content/uploads/2016/12/WhatsApp-Image-2016-12-28-at-2.22.09-AM.jpeg")" height="150"></a>
-        <a onclick="modificar('@Model.ID_Image4', 4)"><img src="@Url.Content(Model.Image4 ?? "https://www.portraitsmaker.com/wp-content/uploads/2016/12/WhatsApp-Image-2016-12-28-at-2.22.09-AM.jpeg")" height="150"></a>
-                        
+        <button class="cancel">Cancelar</button>
     </div>
 </div>
 <div class="all">
@@ -225,35 +241,30 @@
             <div class="col-md-10">
 
                 <!-- 2. Add images to <div class="fotorama"></div>. -->
-                <div class="fotorama" data-click="false" shadows="true" data-keyboard="true" data-nav="thumbs" data-allowfullscreen="native">
-                    <div class="clikable" onclick="modificar('@Model.ID_Image', '0')">
-                    <img src="@Url.Content(Model.Image ?? "https://www.portraitsmaker.com/wp-content/uploads/2016/12/WhatsApp-Image-2016-12-28-at-2.22.09-AM.jpeg")">
+                <div class="fotorama" data-click="false" data-keyboard="true" data-allowfullscreen="true" >
+                    <div class="clikable" onclick="need('@Model.ID_Image', '0')">
+                    <img class="image0" src="@Url.Content(Model.Image == null || Model.Image == "" ? "https://ucarecdn.com/23e99bb4-fc95-43fc-962b-79d3c77f1e8b/no_image_placeholder.png" : Model.Image)">
                     </div>
-                    <div class="clikable" onclick="modificar('@Model.ID_Image1', 1)">
-                        <img src="@Url.Content(Model.Image1 ?? "https://www.portraitsmaker.com/wp-content/uploads/2016/12/WhatsApp-Image-2016-12-28-at-2.22.09-AM.jpeg")">
+                    <div class="clikable" onclick="need('@Model.ID_Image1', 1)">
+                        <img class="image1" src="@Url.Content(Model.Image == null || Model.Image == "" ? "https://ucarecdn.com/23e99bb4-fc95-43fc-962b-79d3c77f1e8b/no_image_placeholder.png" : Model.Image)">
                     </div>
-                    <div class="clikable" onclick="modificar('@Model.ID_Image2', 2)">
-                        <img src="@Url.Content(Model.Image2 ?? "https://www.portraitsmaker.com/wp-content/uploads/2016/12/WhatsApp-Image-2016-12-28-at-2.22.09-AM.jpeg")">
+                    <div class="clikable" onclick="need('@Model.ID_Image2', 2)">
+                        <img class="image2" src="@Url.Content(Model.Image == null || Model.Image == "" ? "https://ucarecdn.com/23e99bb4-fc95-43fc-962b-79d3c77f1e8b/no_image_placeholder.png" : Model.Image)">
                     </div>
-                    <div class="clikable" onclick="modificar('@Model.ID_Image3', 3)">
-                        <img src="@Url.Content(Model.Image3 ?? "https://www.portraitsmaker.com/wp-content/uploads/2016/12/WhatsApp-Image-2016-12-28-at-2.22.09-AM.jpeg")">
+                    <div class="clikable" onclick="need('@Model.ID_Image3', 3)">
+                        <img class="image3" src="@Url.Content(Model.Image == null || Model.Image == "" ? "https://ucarecdn.com/23e99bb4-fc95-43fc-962b-79d3c77f1e8b/no_image_placeholder.png" : Model.Image)">
                     </div>
-                    <div class="clikable" onclick="modificar('@Model.ID_Image4', 4)">
-                        <img src="@Url.Content(Model.Image4 ?? "https://www.portraitsmaker.com/wp-content/uploads/2016/12/WhatsApp-Image-2016-12-28-at-2.22.09-AM.jpeg")">
+                    <div class="clikable" onclick="need('@Model.ID_Image4', 4)">
+                        <img class="image4" src="@Url.Content(Model.Image == null || Model.Image == "" ? "https://ucarecdn.com/23e99bb4-fc95-43fc-962b-79d3c77f1e8b/no_image_placeholder.png" : Model.Image)">
                     </div>
                             </div>
             </div>
-            <div class="form-group main">
-                <div class="col-md-10">
-                    <button id="change"  type="button" data-crop="free, 16:9, 4:3, 5:4, 1:1">Delete an image</button>
-                </div>
-            </div>
             <div class="form-group">
-                @Html.EditorFor(model => model.Image, new { htmlAttributes = new { @class = "form-control hidden", id = "image0" } })
-                @Html.EditorFor(model => model.Image1, new { htmlAttributes = new { @class = "form-control hidden", id = "image1" } })
-                @Html.EditorFor(model => model.Image2, new { htmlAttributes = new { @class = "form-control hidden", id = "image2" } })
-                @Html.EditorFor(model => model.Image3, new { htmlAttributes = new { @class = "form-control hidden", id = "image3" } })
-                @Html.EditorFor(model => model.Image4, new { htmlAttributes = new { @class = "form-control hidden", id = "image4" } })
+                @Html.EditorFor(model => model.Image, new { htmlAttributes = new { @class = "form-control image0 hidden"} })
+                @Html.EditorFor(model => model.Image1, new { htmlAttributes = new { @class = "form-control image1 hidden"} })
+                @Html.EditorFor(model => model.Image2, new { htmlAttributes = new { @class = "form-control image2 hidden"} })
+                @Html.EditorFor(model => model.Image3, new { htmlAttributes = new { @class = "form-control image3 hidden"} })
+                @Html.EditorFor(model => model.Image4, new { htmlAttributes = new { @class = "form-control image4 hidden"} })
             </div>
 
             <div class="form-group">
