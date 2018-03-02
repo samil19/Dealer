@@ -294,6 +294,7 @@
     <Content Include="Content\CosyVehicleImage.jpg.png" />
     <Content Include="Content\CosyVehicleImage.png" />
     <Content Include="Content\CosyVehicleImage1.jpg" />
+    <Content Include="Content\favicon.ico" />
     <Content Include="Content\materialize.css" />
     <Content Include="Content\PagedList.css" />
     <Content Include="favicon.ico" />
