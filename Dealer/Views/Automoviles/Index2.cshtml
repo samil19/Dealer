@@ -8,6 +8,10 @@
     ViewBag.Title = "Automoviles";
 }
 <style type="text/css">
+    .derecha{
+        left: 100%;
+position: sticky;
+    }
     .container {
     max-width: 1587px;
 }
@@ -230,7 +234,7 @@ box-shadow:0 0 8px 0 black;
                         @Html.DisplayFor(modelItem => item.Tipo_Trans.Tipo_Trans1)
                     </td>
 
-                    <td class="text-right">
+                    <td class="text-right derecha">
                         <button class="btn btn-primary call" id="@item.ID_Auto" style="z-index:1;">Agregar a Guardados</button>
                     </td>
                 </tr>

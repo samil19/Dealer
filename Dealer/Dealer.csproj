@@ -235,6 +235,7 @@
     <Compile Include="Controllers\ComprasController.cs" />
     <Compile Include="Controllers\DetallesController.cs" />
     <Compile Include="Controllers\EmpleadosController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MarcasController.cs" />
@@ -332,6 +333,7 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
+    <Content Include="Views\Error\maintenance.html" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -428,6 +430,8 @@
     <Content Include="Views\Automoviles\AutoDetails.cshtml" />
     <Content Include="Views\Automoviles\Create.cshtml" />
     <Content Include="Views\Automoviles\Edit.cshtml" />
+    <Content Include="Views\Error\NotFound.cshtml" />
+    <Content Include="Views\Error\Unavailable.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
